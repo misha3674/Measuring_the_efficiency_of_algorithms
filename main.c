@@ -3,33 +3,25 @@
 #include "common.h"
 #include "load.h"
 #include "draw.h"
-
 #include <GL/gl.h>
 #include <GL/glext.h>
 #include "glfw/include/glfw3.h"
+#include "proccessing.h"
 
-//----------------------------------------------
 GLFWwindow* window;
-
 sListText*    pHeadList_TextSetting;
 listTextArea* pHeadList_TextAreaSetting;
-
+sListTexture* pHeadList_TextuteTask;
 sListTexture* pHeadList_TextuteTask1;
 sListTexture* pHeadList_TextuteTask2;
 sListTexture* pHeadList_TextuteTask3;
 sListTexture* pHeadList_TextuteTask4;
-
 sListButton*  pHeadList_TextButtonSetting;
+eState state = PREPARE_SETTINGS;
 
 int gl_init();
 void key_click_clb(GLFWwindow *pWindow, int aKey, int aScanCode, int aAction, int aMods);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
-
-eState state = PREPARE_SETTINGS;
-
-// texture
-unsigned int iconl;
-unsigned int iconr;
 
 int main()
 {
@@ -41,6 +33,7 @@ int main()
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
         glClearColor(0.1,0.5,0.1,0);
+       getState(&state);
        switch(state) // state processing in the callback function
        {
 
@@ -52,12 +45,28 @@ int main()
                 pHeadList_TextuteTask4     = load_Texture_task4();
                 pHeadList_TextAreaSetting  = load_TextArea_setting();
                 pHeadList_TextButtonSetting= load_Button_setting();
-                state = SETTINGS;
+                setState(SETTINGS);
            }
            break;
            case SETTINGS:
            {
-               draw_Texture_list( pHeadList_TextuteTask1);
+               switch(getTest())
+               {
+                    case 0:
+                        pHeadList_TextuteTask =pHeadList_TextuteTask1;
+                    break;
+                   case 1:
+                        pHeadList_TextuteTask =pHeadList_TextuteTask2;
+                   break;
+                   case 2:
+                        pHeadList_TextuteTask =pHeadList_TextuteTask3;
+                   break;
+                   case 3:
+                        pHeadList_TextuteTask =pHeadList_TextuteTask4;
+                   break;
+                   default: break;
+               }
+               draw_Texture_list( pHeadList_TextuteTask);
                draw_TextArea_list(pHeadList_TextAreaSetting);
                draw_Button_list(  pHeadList_TextButtonSetting);
            }
@@ -133,10 +142,16 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
     double pos_x = 0.;
     double pos_y = 0.;
     glfwGetCursorPos(window,&pos_x,&pos_y);
+    getState(&state);
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
         if(state == SETTINGS)
         {
             proccesing_text_area(pHeadList_TextAreaSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
             proccesing_button_list(pHeadList_TextButtonSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
         }
+        else
+            if(state == RESULTS)
+            {
+
+            }
 }

@@ -5,6 +5,7 @@
 #include "tools/text_tools.h"
 #include "tools/text_area_tools.h"
 #include "tools/texture_tools.h"
+#include "proccessing.h"
 
 #define NUM_CHAR 50
 #define LINE_HEIGHT 2
@@ -171,11 +172,11 @@ sListTexture* load_Texture_task2()
 {
     sListTexture* pHead = NULL;
     pHead = innit_texture_list();
-    int pos_x = 0;
-    int pos_y = 0;
+    int pos_x = 1;
+    int pos_y = 20;
     add_textute_list(pHead,"img/graf2.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
-    add_textute_list(pHead,"img/sys2.png",15,    1,    SIZE_FORM_W,SIZE_FORM_H);
-    add_textute_list(pHead,"img/num2.png",7,     1,    SIZE_NUM_W,SIZE_NUM_H);
+    add_textute_list(pHead,"img/sys2.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num2.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
 
     return pHead;
 }
@@ -183,11 +184,11 @@ sListTexture* load_Texture_task3()
 {
     sListTexture* pHead = NULL;
     pHead = innit_texture_list();
-    int pos_x = 0;
-    int pos_y = 0;
+    int pos_x = 1;
+    int pos_y = 20;
     add_textute_list(pHead,"img/graf3.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
-    add_textute_list(pHead,"img/sys3.png",15,1,SIZE_FORM_W,SIZE_FORM_H);
-    add_textute_list(pHead,"img/num3.png",7,1,SIZE_NUM_W,SIZE_NUM_H);
+    add_textute_list(pHead,"img/sys3.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num3.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
 
     return pHead;
 }
@@ -195,11 +196,11 @@ sListTexture* load_Texture_task4()
 {
     sListTexture* pHead = NULL;
     pHead = innit_texture_list();
-    int pos_x = 0;
-    int pos_y = 0;
+    int pos_x = 1;
+    int pos_y = 20;
     add_textute_list(pHead,"img/graf4.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
-    add_textute_list(pHead,"img/sys4.png",15,1,SIZE_FORM_W,SIZE_FORM_H);
-    add_textute_list(pHead,"img/num4.png",7,1,SIZE_NUM_W,SIZE_NUM_H);
+    add_textute_list(pHead,"img/sys4.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num4.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
 
     return pHead;
 }
@@ -233,16 +234,4 @@ void clear_massiv(char* mas)
         mas[i] = 0;
         i++;
     }
-}
-void action_button_left()
-{
-    printf("Button left\n");
-}
-void action_button_right()
-{
-    printf("Button right\n");
-}
-void action_button_result()
-{
-    printf("Result\n");
 }
