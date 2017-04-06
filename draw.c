@@ -170,7 +170,6 @@ void proccesing_text_area(listTextArea* pHead,int x, int y)
             pPressArea = crowler;
             return;
         }
-    printf("%i %i\n",x,y);
     pPressArea = NULL;
 }
 void processing_text_textArea(int aKey)
@@ -209,7 +208,53 @@ void processing_text_textArea(int aKey)
 //-----------------------------------------------------------------
 void draw_Button_list(sListButton* pHead)
 {
+    sListButton* crowler = NULL;
+    if(pHead == NULL)
+        return;
+    crowler = pHead->pNext;
+    glColor3ub(255,255,255);
+    while(crowler->pNext != NULL)
+    {
+            glBindTexture(GL_TEXTURE_2D,(crowler->texture));
+        glBegin(GL_QUADS);
+            glTexCoord2f(1,1);
+            glVertex2i( (crowler->mX)*STEP_CURSOR,      crowler->mY*STEP_CURSOR);
+            glTexCoord2f(1,0);
+            glVertex2i( (crowler->mX+crowler->w)*STEP_CURSOR,    crowler->mY*STEP_CURSOR);
+            glTexCoord2f(0,0);
+            glVertex2i( (crowler->mX+crowler->w)*STEP_CURSOR,   (crowler->mY+crowler->h)*STEP_CURSOR);
+            glTexCoord2f(0,1);
+            glVertex2i( crowler->mX*STEP_CURSOR,        (crowler->mY+crowler->h)*STEP_CURSOR);
+        glEnd();
+        crowler = crowler->pNext;
+    }
+        glBindTexture(GL_TEXTURE_2D,(crowler->texture));
+        glBegin(GL_QUADS);
+            glTexCoord2f(1,1);
+            glVertex2i( (crowler->mX)*STEP_CURSOR,      crowler->mY*STEP_CURSOR);
+            glTexCoord2f(1,0);
+            glVertex2i( (crowler->mX+crowler->w)*STEP_CURSOR,    crowler->mY*STEP_CURSOR);
+            glTexCoord2f(0,0);
+            glVertex2i( (crowler->mX+crowler->w)*STEP_CURSOR,   (crowler->mY+crowler->h)*STEP_CURSOR);
+            glTexCoord2f(0,1);
+            glVertex2i( crowler->mX*STEP_CURSOR,        (crowler->mY+crowler->h)*STEP_CURSOR);
+        glEnd();
+        crowler = pHead->pNext;
+        glColor3ub(255,0,0);
+        int c = 0;
+        while(crowler->pNext != NULL)
+        {
+            glRasterPos2i((crowler->mX+1)*STEP_CURSOR,(crowler->mY+2.5)*STEP_CURSOR);
+            for(c = 0; crowler->name[c] != 0; c++)
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,crowler->name[c]);
 
+            crowler = crowler->pNext;
+        }
+        glRasterPos2i((crowler->mX+1)*STEP_CURSOR,(crowler->mY+2.5)*STEP_CURSOR);
+        for(c = 0; crowler->name[c] != 0; c++)
+        {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,crowler->name[c]);
+        }
 }
 
 //--------------------------------------------------------------

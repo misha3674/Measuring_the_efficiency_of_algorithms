@@ -8,9 +8,6 @@
 #include <GL/glext.h>
 #include "glfw/include/glfw3.h"
 
-#define SCREEN_WIDTH        1300
-#define SCREEN_HEIGHT       690
-#define IS_FULL_SCREEN      0
 //----------------------------------------------
 GLFWwindow* window;
 
@@ -136,6 +133,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
     double pos_x = 0.;
     double pos_y = 0.;
     glfwGetCursorPos(window,&pos_x,&pos_y);
-    if(state == SETTINGS)
-        proccesing_text_area(pHeadList_TextAreaSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+        if(state == SETTINGS)
+        {
+            proccesing_text_area(pHeadList_TextAreaSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
+            proccesing_button_list(pHeadList_TextButtonSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
+        }
 }

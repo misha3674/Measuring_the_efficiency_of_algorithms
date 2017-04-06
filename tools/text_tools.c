@@ -3,12 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_NUM_LIST 5
-
-/*sListText* masHeadList[MAX_NUM_LIST] = {NULL};
-sListText* masLastList[MAX_NUM_LIST] = {NULL};
-int count_fill_list = 0;*/
-
 sListText* innit_text_list()
 {
     sListText* askHead = NULL;

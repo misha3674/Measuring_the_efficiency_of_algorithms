@@ -1,9 +1,14 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define NUM_SMB 15
+#define NUM_SMB 25
 #define STEP_CURSOR 10
 #define MAX_SMB_LIST 50
+#define SCREEN_WIDTH        1300
+#define SCREEN_HEIGHT       690
+#define IS_FULL_SCREEN      0
+
+typedef void (*pf)();
 
 typedef enum
 {
@@ -44,8 +49,13 @@ struct sListTexture
 };
 struct sListButton
 {
+    char name[NUM_SMB];
     int mX;
     int mY;
+    unsigned int texture;
+    int w;
+    int h;
+    pf action;
     struct sListButton* pNext;
 };
 

@@ -18,6 +18,9 @@
 #define SIZE_FORM_H 15
 
 void clear_massiv(char* mas);
+void action_button_left();
+void action_button_right();
+void action_button_result();
 
 sListText*    load_Text_result()
 {
@@ -116,7 +119,7 @@ listTextArea* load_TextArea_setting()
     int pos_x = 0;
     int pos_y = 0;
 
-    pos_x = 103;
+    pos_x = 95;
     pos_y = 2;
     add_textArea_list(pHead,"Parent",pos_x,pos_y);
     pos_y+=4;
@@ -124,7 +127,7 @@ listTextArea* load_TextArea_setting()
     pos_y+=4;
     add_textArea_list(pHead,"Mutant",pos_x,pos_y);
 
-    pos_x = 102;
+    pos_x = 95;
     pos_y = 25;
     add_textArea_list(pHead,"Particle",pos_x,pos_y);
     pos_y+=4;
@@ -134,7 +137,7 @@ listTextArea* load_TextArea_setting()
     pos_y+=4;
     add_textArea_list(pHead,"Iner (w)",pos_x,pos_y);
 
-    pos_x = 102;
+    pos_x = 95;
     pos_y = 48;
     add_textArea_list(pHead,"decrease Tem",pos_x,pos_y);
     pos_y+=4;
@@ -142,7 +145,7 @@ listTextArea* load_TextArea_setting()
     pos_y+=4;
     add_textArea_list(pHead,"End Temp",pos_x,pos_y);
 
-    pos_x = 115;
+    pos_x = 95;
     pos_y+=4;
     add_textArea_list(pHead,"a -",pos_x,pos_y);
     pos_y+=4;
@@ -203,7 +206,23 @@ sListTexture* load_Texture_task4()
 //----------------------------------------------------------------------------------------------------
 sListButton*  load_Button_setting()
 {
-    return (sListButton*)malloc(sizeof(sListButton));
+    sListButton* pHead = NULL;
+    sListButton* pButton = NULL;
+    pHead = innit_button_list();
+
+    pButton = add_button_list(pHead,1,6);
+    set_texture_button(pButton,"img/iconl.png");
+    set_action_button(pButton,&action_button_left);
+
+    pButton = add_button_list(pHead,19,6);
+    set_texture_button(pButton,"img/iconr.png");
+    set_action_button(pButton,&action_button_right);
+
+    pButton = add_button_list(pHead,120,63);
+    set_name_button(pButton,"Result");
+    set_action_button(pButton,&action_button_result);
+    set_size_button(pButton,9,4);
+    return pHead;
 }
 //---------------------------------------------------------------------------------------------------
 void clear_massiv(char* mas)
@@ -214,4 +233,16 @@ void clear_massiv(char* mas)
         mas[i] = 0;
         i++;
     }
+}
+void action_button_left()
+{
+    printf("Button left\n");
+}
+void action_button_right()
+{
+    printf("Button right\n");
+}
+void action_button_result()
+{
+    printf("Result\n");
 }
