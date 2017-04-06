@@ -1,9 +1,11 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define NUM_SMB 10
+#define NUM_SMB 15
 #define STEP_CURSOR 10
 #define MAX_SMB_LIST 50
+
+
 typedef enum
 {
     SETTINGS = 0,
@@ -17,9 +19,10 @@ struct listTextArea
 {
     int mX;
     int mY;
-    char text_area[NUM_SMB];
-    char name_area[NUM_SMB];
+    char text[NUM_SMB];
+    char name[NUM_SMB];
     int i; // the number of number in area
+    int shift_area;
     double low;
     double hight;
     struct listTextArea* pNext;

@@ -107,13 +107,38 @@ listTextArea* load_TextArea_setting()
     int pos_x = 0;
     int pos_y = 0;
 
+    pos_x = 103;
+    pos_y = 2;
+    add_textArea_list(pHead,"Parent",pos_x,pos_y);
+    pos_y+=4;
+    add_textArea_list(pHead,"Child",pos_x,pos_y);
+    pos_y+=4;
+    add_textArea_list(pHead,"Mutant",pos_x,pos_y);
+
     pos_x = 102;
-    pos_y = 4;
-    add_textArea_list(pHead,"Parent",pos_x,pos_y,10);
-    pos_y+=2;
-    add_textArea_list(pHead,"Child",pos_x,pos_y,10);
-    pos_y+=2;
-    add_textArea_list(pHead,"Mutant",pos_x,pos_y,10);
+    pos_y = 25;
+    add_textArea_list(pHead,"Particle",pos_x,pos_y);
+    pos_y+=4;
+    add_textArea_list(pHead,"KofP (c1)",pos_x,pos_y);
+    pos_y+=4;
+    add_textArea_list(pHead,"KofG (c2)",pos_x,pos_y);
+    pos_y+=4;
+    add_textArea_list(pHead,"Iner (w)",pos_x,pos_y);
+
+    pos_x = 102;
+    pos_y = 48;
+    add_textArea_list(pHead,"decrease Tem",pos_x,pos_y);
+    pos_y+=4;
+    add_textArea_list(pHead,"Innit Temp",pos_x,pos_y);
+    pos_y+=4;
+    add_textArea_list(pHead,"End Temp",pos_x,pos_y);
+
+    pos_x = 115;
+    pos_y+=4;
+    add_textArea_list(pHead,"a -",pos_x,pos_y);
+    pos_y+=4;
+    add_textArea_list(pHead,"b -",pos_x,pos_y);
+
 
     return pHead;
 }

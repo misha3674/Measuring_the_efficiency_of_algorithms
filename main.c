@@ -116,7 +116,8 @@ void key_click_clb(GLFWwindow *pWindow, int aKey, int aScanCode, int aAction, in
         glfwSetWindowShouldClose(pWindow, GL_TRUE);
     if(aAction == GLFW_RELEASE)
     {
-       printf("click\n");
+       if(state == SETTINGS)
+           processing_text_textArea(aKey);
     }
 }
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -124,5 +125,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
     double pos_x = 0.;
     double pos_y = 0.;
     glfwGetCursorPos(window,&pos_x,&pos_y);
-    printf(" click %g %g\n",pos_x,pos_y);
+    if(state == SETTINGS)
+        proccesing_text_area(pHeadList_TextAreaSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
 }
