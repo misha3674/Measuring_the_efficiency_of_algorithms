@@ -1,7 +1,8 @@
 #ifndef LOAD_H
 #define LOAD_H
 
-sListText*    load_Text_setting();
+sListText*    load_Text_result();
+
 listTextArea* load_TextArea_setting();
 sListTexture* load_Texture_setting();
 sListButton*  load_Button_setting();

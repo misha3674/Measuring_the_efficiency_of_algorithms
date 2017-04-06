@@ -17,8 +17,9 @@ struct listTextArea
 {
     int mX;
     int mY;
-    char text[NUM_SMB]; // char
-    int i;
+    char text_area[NUM_SMB];
+    char name_area[NUM_SMB];
+    int i; // the number of number in area
     double low;
     double hight;
     struct listTextArea* pNext;

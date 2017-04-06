@@ -13,18 +13,10 @@ sListText* innit_text_list()
 {
     sListText* askHead = NULL;
     askHead = (sListText*)malloc(sizeof(sListText));
-    /*if(count_fill_list > MAX_NUM_LIST)
-    {
-        printf("NO place for the list text\n");
-        return NULL;
-    }
-
-    masHeadList[count_fill_list] = askHead;
-    count_fill_list++;*/
     askHead->pNext = NULL;
     return askHead;
 }
-void add_text_list(const sListText* pHead,char* aText,int aX, int aY)
+void add_text_list(sListText* pHead,char* aText,int aX, int aY)
 {
     sListText* crowler = pHead;
     sListText* newNode = NULL;
@@ -54,8 +46,4 @@ void clear_text_list(sListText* pHead)
     }
     free(pHead);
     pHead = NULL;
-}
-void draw_text_list(const sListText* pHead)
-{
-
 }
