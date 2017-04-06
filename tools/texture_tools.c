@@ -1,6 +1,9 @@
-#ifndef LOADIMAGE_H
-#define LOADIMAGE_H
+#include "common.h"
+#include "texture_tools.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <GL/gl.h>
+#include "freeimage/FreeImage.h"
 //===================================================================================
 //===================================================================================
 FIBITMAP *loadImage(const char *filename)
@@ -8,7 +11,7 @@ FIBITMAP *loadImage(const char *filename)
     FIBITMAP *dib1 = NULL;
     FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(filename);
 
-    dib1 = FreeImage_Load(fif, filename, PNG_DEFAULT);
+    dib1 = FreeImage_Load(fif, filename, JPEG_DEFAULT);
     if (!dib1)
     {
        printf("Not found\n");
@@ -60,20 +63,44 @@ GLuint loadTexture (FIBITMAP  * dib1)
       free(texels);
       return tex_id;
 }
-
-
-
 GLuint  LoadTextureAUTO(const char * filename)
 {
     GLuint texID;
     FIBITMAP  *dib1 = loadImage(filename);
     texID = loadTexture(dib1);
         FreeImage_Unload(dib1);
+    printf("Unload\n");
     return texID;
 }
 //=============================================================================
 //=============================================================================
 
+sListTexture* innit_texture_list()
+{
+    sListTexture* askHead = NULL;
+    askHead = (sListTexture*)malloc(sizeof(sListTexture));
+    askHead->pNext = NULL;
+    return askHead;
+}
+sListTexture* add_textute_list(sListTexture* pHead,const char* way,
+                               int pos_x,int pos_y,
+                               int width, int height)
+{
+    sListTexture* crowler = pHead;
+    sListTexture* newNode = NULL;
 
+    newNode = (sListTexture*)malloc(sizeof(sListTexture));
 
-#endif // LOADIMAGE_H
+    newNode->mX = pos_x;
+    newNode->mY = pos_y;
+    newNode->width = width;
+    newNode->height = height;
+    newNode->texture = LoadTextureAUTO(way);
+    newNode->pNext = NULL;
+
+    while(crowler->pNext != NULL)
+        crowler = crowler->pNext;
+    crowler->pNext = newNode;
+
+    return newNode;
+}

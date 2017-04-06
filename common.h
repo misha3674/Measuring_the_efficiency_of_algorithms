@@ -5,7 +5,6 @@
 #define STEP_CURSOR 10
 #define MAX_SMB_LIST 50
 
-
 typedef enum
 {
     SETTINGS = 0,
@@ -38,6 +37,9 @@ struct sListTexture
 {
     int mX;
     int mY;
+    int width;
+    int height;
+    unsigned int texture;
     struct sListTexture* pNext;
 };
 struct sListButton

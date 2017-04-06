@@ -4,9 +4,18 @@
 #include <stdio.h>
 #include "tools/text_tools.h"
 #include "tools/text_area_tools.h"
+#include "tools/texture_tools.h"
+
 #define NUM_CHAR 50
 #define LINE_HEIGHT 2
 
+#define SIZE_NUM_W 7
+#define SIZE_NUM_H 7
+#define SIZE_GRAPH_W 65
+#define SIZE_GRAPH_H 45
+
+#define SIZE_FORM_W 30
+#define SIZE_FORM_H 15
 
 void clear_massiv(char* mas);
 
@@ -143,9 +152,53 @@ listTextArea* load_TextArea_setting()
     return pHead;
 }
 //----------------------------------------------------------------------------------------------------
-sListTexture* load_Texture_setting()
+sListTexture* load_Texture_task1()
 {
-    return (sListTexture*)malloc(sizeof(sListTexture));
+    sListTexture* pHead = NULL;
+    pHead = innit_texture_list();
+    int pos_x = 1;
+    int pos_y = 20;
+    add_textute_list(pHead,"img/graf1.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
+    add_textute_list(pHead,"img/sys1.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num1.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
+
+    return pHead;
+}
+sListTexture* load_Texture_task2()
+{
+    sListTexture* pHead = NULL;
+    pHead = innit_texture_list();
+    int pos_x = 0;
+    int pos_y = 0;
+    add_textute_list(pHead,"img/graf2.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
+    add_textute_list(pHead,"img/sys2.png",15,    1,    SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num2.png",7,     1,    SIZE_NUM_W,SIZE_NUM_H);
+
+    return pHead;
+}
+sListTexture* load_Texture_task3()
+{
+    sListTexture* pHead = NULL;
+    pHead = innit_texture_list();
+    int pos_x = 0;
+    int pos_y = 0;
+    add_textute_list(pHead,"img/graf3.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
+    add_textute_list(pHead,"img/sys3.png",15,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num3.png",7,1,SIZE_NUM_W,SIZE_NUM_H);
+
+    return pHead;
+}
+sListTexture* load_Texture_task4()
+{
+    sListTexture* pHead = NULL;
+    pHead = innit_texture_list();
+    int pos_x = 0;
+    int pos_y = 0;
+    add_textute_list(pHead,"img/graf4.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
+    add_textute_list(pHead,"img/sys4.png",15,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num4.png",7,1,SIZE_NUM_W,SIZE_NUM_H);
+
+    return pHead;
 }
 //----------------------------------------------------------------------------------------------------
 sListButton*  load_Button_setting()

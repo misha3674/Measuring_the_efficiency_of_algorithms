@@ -1,13 +1,12 @@
 #include <windows.h>
+#include <stdio.h>
 #include "common.h"
 #include "load.h"
 #include "draw.h"
-#include <stdio.h>
 
-#include "glfw/include/glfw3.h"
 #include <GL/gl.h>
 #include <GL/glext.h>
-#include <time.h>
+#include "glfw/include/glfw3.h"
 
 #define SCREEN_WIDTH        1300
 #define SCREEN_HEIGHT       690
@@ -17,7 +16,12 @@ GLFWwindow* window;
 
 sListText*    pHeadList_TextSetting;
 listTextArea* pHeadList_TextAreaSetting;
-sListTexture* pHeadList_TextuteSetting;
+
+sListTexture* pHeadList_TextuteTask1;
+sListTexture* pHeadList_TextuteTask2;
+sListTexture* pHeadList_TextuteTask3;
+sListTexture* pHeadList_TextuteTask4;
+
 sListButton*  pHeadList_TextButtonSetting;
 
 int gl_init();
@@ -25,6 +29,10 @@ void key_click_clb(GLFWwindow *pWindow, int aKey, int aScanCode, int aAction, in
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 eState state = PREPARE_SETTINGS;
+
+// texture
+unsigned int iconl;
+unsigned int iconr;
 
 int main()
 {
@@ -41,7 +49,10 @@ int main()
 
            case PREPARE_SETTINGS:
            {
-                pHeadList_TextuteSetting   = load_Texture_setting();
+                pHeadList_TextuteTask1     = load_Texture_task1();
+                pHeadList_TextuteTask2     = load_Texture_task2();
+                pHeadList_TextuteTask3     = load_Texture_task3();
+                pHeadList_TextuteTask4     = load_Texture_task4();
                 pHeadList_TextAreaSetting  = load_TextArea_setting();
                 pHeadList_TextButtonSetting= load_Button_setting();
                 state = SETTINGS;
@@ -49,7 +60,7 @@ int main()
            break;
            case SETTINGS:
            {
-               draw_Texture_list( pHeadList_TextuteSetting);
+               draw_Texture_list( pHeadList_TextuteTask1);
                draw_TextArea_list(pHeadList_TextAreaSetting);
                draw_Button_list(  pHeadList_TextButtonSetting);
            }

@@ -7,7 +7,8 @@ SOURCES += main.c \
     load.c \
     tools/text_tools.c \
     draw.c \
-    tools/text_area_tools.c
+    tools/text_area_tools.c \
+    tools/texture_tools.c
 
 QMAKE_CFLAGS += -std=c11
 
@@ -28,4 +29,5 @@ HEADERS += \
     glfw/include/glfw3.h \
     glfw/include/glfw3native.h \
     glut/include/glut.h \
-    tools/text_area_tools.h
+    tools/text_area_tools.h \
+    tools/texture_tools.h

@@ -31,7 +31,37 @@ void draw_Text_list(sListText* pHead)
 }
 void draw_Texture_list(sListTexture* pHead)
 {
-
+    sListTexture* crowler = NULL;
+    if(pHead == NULL)
+        return;
+    crowler = pHead->pNext;
+    glColor3ub(10,10,130);
+    while(crowler->pNext != NULL)
+    {
+            glBindTexture(GL_TEXTURE_2D,(crowler->texture));
+        glBegin(GL_QUADS);
+            glTexCoord2f(1,1);
+            glVertex2i( (crowler->mX)*STEP_CURSOR,      crowler->mY*STEP_CURSOR);
+            glTexCoord2f(1,0);
+            glVertex2i( (crowler->mX+crowler->width)*STEP_CURSOR,    crowler->mY*STEP_CURSOR);
+            glTexCoord2f(0,0);
+            glVertex2i( (crowler->mX+crowler->width)*STEP_CURSOR,   (crowler->mY+crowler->height)*STEP_CURSOR);
+            glTexCoord2f(0,1);
+            glVertex2i( crowler->mX*STEP_CURSOR,        (crowler->mY+crowler->height)*STEP_CURSOR);
+        glEnd();
+        crowler = crowler->pNext;
+    }
+        glBindTexture(GL_TEXTURE_2D,(crowler->texture));
+        glBegin(GL_QUADS);
+            glTexCoord2f(1,1);
+            glVertex2i( (crowler->mX)*STEP_CURSOR,      crowler->mY*STEP_CURSOR);
+            glTexCoord2f(1,0);
+            glVertex2i( (crowler->mX+crowler->width)*STEP_CURSOR,    crowler->mY*STEP_CURSOR);
+            glTexCoord2f(0,0);
+            glVertex2i( (crowler->mX+crowler->width)*STEP_CURSOR,   (crowler->mY+crowler->height)*STEP_CURSOR);
+            glTexCoord2f(0,1);
+            glVertex2i( crowler->mX*STEP_CURSOR,        (crowler->mY+crowler->height)*STEP_CURSOR);
+        glEnd();
 }
 void draw_TextArea_list(listTextArea* pHead)
 {
