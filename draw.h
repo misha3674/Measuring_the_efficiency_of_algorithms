@@ -9,5 +9,5 @@ void draw_Button_list(sListButton* pHead);
 void proccesing_text_area(listTextArea* pHead,int x, int y);
 void processing_text_textArea(int aKey);
 
-void draw_scale(sListScale*);
+void draw_scale(sListScale* pHead);
 #endif // DRAW_H

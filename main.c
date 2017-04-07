@@ -87,7 +87,7 @@ int main()
            break;
            case RESULTS:
            {
-                //draw_scale(pHeadList_Scale);
+                draw_scale(pHeadList_Scale);
                 draw_Text_list(pHeadList_TextResult);
                 draw_Button_list(pHeadList_TextButtonResult);
            }

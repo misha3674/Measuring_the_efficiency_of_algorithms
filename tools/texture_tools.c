@@ -76,7 +76,7 @@ GLuint  LoadTextureAUTO(const char * filename)
 }
 //=============================================================================
 //=============================================================================
-
+void converttoScale(int h,int* data);
 sListTexture* innit_texture_list()
 {
     sListTexture* askHead = NULL;
@@ -149,6 +149,43 @@ void set_size_button(sListButton* button, int w, int h)
 void set_action_button(sListButton* button, pf pAction)
 {
     button->action  = pAction;
+}
+//--------------Scale --------------------------------------------------------------
+sListScale* innit_scale_list()
+{
+    sListScale* askHead = NULL;
+    askHead = (sListScale*)malloc(sizeof(sListScale));
+    askHead->pNext = NULL;
+    return askHead;
+}
+sListScale* create_scale(sListScale* pHead, int pos_x, int pos_y, int w, int h, sResult* data)
+{
+    sListScale* crowler = pHead;
+    sListScale* newNode = NULL;
+
+    newNode = (sListScale*)malloc(sizeof(sListScale));
+    newNode->posX = pos_x;
+    newNode->posY = pos_y;
+    newNode->w = w;
+    newNode->h = h;
+    newNode->pNext = NULL;
+    newNode->dataValue = (int*)malloc(sizeof(int)*NUM_TEST);
+    newNode->dataTime = (int*)malloc(sizeof(int)*NUM_TEST);
+    for(int i = 0; i < NUM_TEST; i++)
+    {
+        newNode->dataValue[i] = data[i].value;
+        newNode->dataTime[i]  = data[i].time;
+    }
+    converttoScale(newNode->h,newNode->dataValue);
+    converttoScale(newNode->h,newNode->dataTime);
+    while(crowler->pNext != NULL)
+        crowler = crowler->pNext;
+    crowler->pNext = newNode;
+    return newNode;
+}
+void converttoScale(int h,int* data)
+{
+
 }
 
 

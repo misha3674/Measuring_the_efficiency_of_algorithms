@@ -225,11 +225,12 @@ sListButton*  load_Button_setting()
 //------------------------------------------------------------------------------------------------------
 sListScale* load_scale(sResult** result)
 {
-    /*sListScale* pHead = NULL;
+    sListScale* pHead = NULL;
     pHead = innit_scale_list();
-    // pos_x,pos_y,w,h,data
-    for(int i = 0; i < NUM_ALGORITHM; i++)
-        create_scale(1,23*(i+1),100,22,result[i]);*/
+    create_scale(pHead,1,23,100,22,*(result+0));
+    create_scale(pHead,1,46,100,22,*(result+1));
+    create_scale(pHead,1,69,100,22,*(result+2));
+    return pHead;
 }
 //---------------------------------------------------------------------------------------------------
 void clear_massiv(char* mas)

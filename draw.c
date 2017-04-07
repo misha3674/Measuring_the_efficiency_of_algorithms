@@ -260,12 +260,12 @@ void draw_scale(sListScale* pHead)
     sListScale* crowler = NULL;
     if(pHead == NULL)
         return;
+    printf("start %s\n",__FUNCTION__);
     crowler = pHead->pNext;
     while(crowler->pNext != NULL)
     {
         //приймає верхній правий кут
-        draw_layer(crowler->posX,crowler->posY-crowler->h,
-                   crowler->w, crowler->h);
+        draw_layer(crowler->posX,crowler->posY-crowler->h,crowler->w, crowler->h);
         glLineWidth(STEP_CURSOR);
         glBegin(GL_LINES);
             for(int i = 0; i < NUM_TEST; i++)
@@ -283,8 +283,7 @@ void draw_scale(sListScale* pHead)
         glEnd();
         crowler = crowler->pNext;
     }
-    draw_layer(crowler->posX,crowler->posY-crowler->h,
-               crowler->w, crowler->h);
+    draw_layer(crowler->posX,crowler->posY-crowler->h,crowler->w, crowler->h);
     glLineWidth(STEP_CURSOR);
     glBegin(GL_LINES);
         for(int i = 0; i < NUM_TEST; i++)

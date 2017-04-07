@@ -85,12 +85,6 @@ void action_button_result()
 //-------------------------------------------------------------------------------------------------------
 sResult** run_algorithm()
 {
-   double max_timeGA   = 0.;
-   double max_timeSA   = 0.;
-   double max_timePSO  = 0.;
-   double min_valueGA  = 0.;
-   double min_valueSA  = 0.;
-   double min_valuePSO = 0.;
    sResult** resultAlgorithm;
    sResult* resGA;
    sResult* resSA;
@@ -117,19 +111,6 @@ sResult** run_algorithm()
          struct_copy(resGA+i,&tmp);
        tmp = particle_swarm_optimization(3,10,0.4,0.7,0.75); //1,10,0.2,0.8,0.9
          struct_copy(resGA+i,&tmp);
-
-        if(max_timeGA < resGA[i].time)
-            max_timeGA = resGA[i].time;
-        if(max_timeSA < resSA[i].time)
-            max_timeSA = resSA[i].time;
-        if(max_timePSO < resPSO[i].time)
-            max_timePSO = resPSO[i].time;
-        if(min_valueGA > resGA[i].value)
-            min_valueGA = resGA[i].value;
-        if(min_valueSA > resSA[i].value)
-            min_valueSA = resSA[i].value;
-        if(min_valuePSO > resPSO[i].value)
-            min_valuePSO = resPSO[i].value;
    }
    resultAlgorithm[0] = resGA;
    resultAlgorithm[1] = resSA;
