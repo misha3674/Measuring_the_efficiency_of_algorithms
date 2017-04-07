@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
-#include <time.h>
 #define NUM_TEST 100
 
 typedef struct
@@ -38,11 +37,8 @@ sLine particle_swarm_optimization(unsigned int num_sys, const unsigned num_prat,
 {
     num_pratticle = num_prat;
     sParticle data_particle[num_prat];
-    srand(time(0));
-
     float kofP = kP;
     float kofG = kG;
-
     switch(num_sys)
     {
         case 1:

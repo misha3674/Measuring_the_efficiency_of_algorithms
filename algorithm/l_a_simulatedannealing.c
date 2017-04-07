@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-#include <time.h>
 #include "time_chrono.h"
 #define NUM_TEST 100
 typedef sCoor sState;
@@ -35,7 +34,6 @@ sLine simulatedAnnealing(unsigned int num_sys,
     sLine result;
     lA = a;
     lB = b;
-    srand(time(0));
     switch(num_sys)
     {
         case 1:
@@ -144,7 +142,6 @@ sState generateStateCandidate(sState previousState, int iter)
 // ------------------------------------------------------------------------------
 sLine simulatedAnnealing_r(sState* primaryState, double initialTemperature, double endTemperature)
 {
-     srand(time(0));
      double currentTemp = 0.0f;
      double currentEnergy   = 0.0f;
      double candidateEnergy = 0.0f;

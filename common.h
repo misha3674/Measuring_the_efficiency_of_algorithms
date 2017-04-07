@@ -4,12 +4,14 @@
 #define NUM_SMB 8
 #define LEN_NAME 25
 #define STEP_CURSOR 10
-#define MAX_SMB_LIST 50
-#define SCREEN_WIDTH        1300
-#define SCREEN_HEIGHT       690
-#define IS_FULL_SCREEN      0
-#define NUM_TEST 100
-#define NUM_ALGORITHM 3
+#define MAX_SMB_LIST           50
+#define SCREEN_WIDTH           1300
+#define SCREEN_HEIGHT          690
+#define IS_FULL_SCREEN         0
+#define NUM_TEST               100
+#define NUM_ALGORITHM          3
+#define HEIGHT_OUTRANGE_BAR    2
+#define MIN_HEIGHT_INRANGE_BAR 3
 /* 0 - GA 1- SA 2 - PSO */
 typedef void (*pf)();
 

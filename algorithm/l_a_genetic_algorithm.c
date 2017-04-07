@@ -4,7 +4,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 int PARENTS = 0;
 int CHILDS  = 0;
 int MUTANTS = 0;
@@ -47,7 +46,6 @@ int convergenceTest_v2(sChromosome* aData);
 
 sLine genetic_algorithm(unsigned int num_sys,unsigned int paren,unsigned int chil,unsigned int mut)
 {
-    srand(time(0));
     PARENTS = paren;
     CHILDS  = chil;
     MUTANTS = mut;

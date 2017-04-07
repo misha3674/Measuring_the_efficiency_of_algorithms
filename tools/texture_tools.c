@@ -4,9 +4,10 @@
 #include <stdlib.h>
 #include <GL/gl.h>
 #include "freeimage/FreeImage.h"
-
 #define DEF_BUTTON_W 7
 #define DEF_BUTTON_H 7
+#define RANGE_SCALE_TIME 0.01
+#define RANGE_SCALE_VALUE 1
 //===================================================================================
 //===================================================================================
 FIBITMAP *loadImage(const char *filename)
@@ -76,7 +77,6 @@ GLuint  LoadTextureAUTO(const char * filename)
 }
 //=============================================================================
 //=============================================================================
-void converttoScale(int h,int* data);
 sListTexture* innit_texture_list()
 {
     sListTexture* askHead = NULL;
@@ -171,21 +171,46 @@ sListScale* create_scale(sListScale* pHead, int pos_x, int pos_y, int w, int h, 
     newNode->pNext = NULL;
     newNode->dataValue = (int*)malloc(sizeof(int)*NUM_TEST);
     newNode->dataTime = (int*)malloc(sizeof(int)*NUM_TEST);
+
+    double max_time = data[0].time;
+    double min_value = data[0].value;
+
+    double min_time = 0.;
+    double max_value = 0.;
+
     for(int i = 0; i < NUM_TEST; i++)
     {
-        newNode->dataValue[i] = data[i].value;
-        newNode->dataTime[i]  = data[i].time;
+        if(max_time < data[i].time)
+            max_time = data[i].time;
+        if(min_value > data[i].value)
+            min_value = data[i].value;
     }
-    converttoScale(newNode->h,newNode->dataValue);
-    converttoScale(newNode->h,newNode->dataTime);
+    printf("min_value %g\n",min_value);
+    min_time  = max_time - RANGE_SCALE_TIME;
+    max_value = min_value + RANGE_SCALE_VALUE;
+    double rateTime = 0.;
+    double rateValue = 0.;
+
+    for(int i = 0; i < NUM_TEST; i++)
+    {
+        if(data[i].value > max_value)
+            newNode->dataValue[i] = HEIGHT_OUTRANGE_BAR;
+        else
+        {
+            rateValue = ( (data[i].value - min_value)/RANGE_SCALE_VALUE);
+            newNode->dataValue[i] = (int)( (newNode->h - MIN_HEIGHT_INRANGE_BAR)*rateValue + MIN_HEIGHT_INRANGE_BAR);
+        }
+        if(data[i].time < min_time)
+            newNode->dataTime[i] = HEIGHT_OUTRANGE_BAR;
+        else
+        {
+            rateTime  = ( (data[i].time - min_time)/RANGE_SCALE_TIME );
+            newNode->dataTime[i]  = (int)( (newNode->h - MIN_HEIGHT_INRANGE_BAR)*rateTime + MIN_HEIGHT_INRANGE_BAR );
+        }
+    }
     while(crowler->pNext != NULL)
         crowler = crowler->pNext;
     crowler->pNext = newNode;
     return newNode;
 }
-void converttoScale(int h,int* data)
-{
-
-}
-
 

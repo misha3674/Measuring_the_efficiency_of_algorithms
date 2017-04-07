@@ -7,6 +7,7 @@
 #define HEIGHT_AREA 2
 #define WIDTH_AREA 8
 #define SHIFT_TOP 1.5
+#define WITH_POINT 8
 listTextArea* pPressArea = 0;
 
 void draw_layer(int pos_x, int pos_y, int w, int h);
@@ -260,43 +261,62 @@ void draw_scale(sListScale* pHead)
     sListScale* crowler = NULL;
     if(pHead == NULL)
         return;
-    printf("start %s\n",__FUNCTION__);
     crowler = pHead->pNext;
     while(crowler->pNext != NULL)
     {
         //приймає верхній правий кут
         draw_layer(crowler->posX,crowler->posY-crowler->h,crowler->w, crowler->h);
-        glLineWidth(STEP_CURSOR);
+        glLineWidth(WITH_POINT);
         glBegin(GL_LINES);
             for(int i = 0; i < NUM_TEST; i++)
             {
-               glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY)*STEP_CURSOR);
-               glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY-crowler->dataValue[i])*STEP_CURSOR);
+               if(crowler->dataValue[i] == HEIGHT_OUTRANGE_BAR)
+                   glColor3ub(0,0,0);
+               else
+                   glColor3ub(0,255,0);
+               glVertex2i((crowler->posX+i)*STEP_CURSOR+WITH_POINT/2,(crowler->posY)*STEP_CURSOR);
+               glVertex2i((crowler->posX+i)*STEP_CURSOR+WITH_POINT/2,(crowler->posY-crowler->dataValue[i])*STEP_CURSOR);
             }
         glEnd();
-        glPointSize(STEP_CURSOR);
+        glPointSize(WITH_POINT);
         glBegin(GL_POINTS);
             for(int i = 0; i < NUM_TEST; i++)
             {
-               glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY-crowler->dataTime[i])*STEP_CURSOR);
+                if(crowler->dataValue[i] == HEIGHT_OUTRANGE_BAR)
+                    glColor3ub(255,0,0);
+                else
+                    glColor3ub(0,0,255);
+                glVertex2i((crowler->posX+i)*STEP_CURSOR+WITH_POINT/2,(crowler->posY-crowler->dataTime[i])*STEP_CURSOR);
             }
         glEnd();
         crowler = crowler->pNext;
     }
+
     draw_layer(crowler->posX,crowler->posY-crowler->h,crowler->w, crowler->h);
-    glLineWidth(STEP_CURSOR);
+    glColor3ub(0,0,255);
+    glLineWidth(WITH_POINT);
     glBegin(GL_LINES);
         for(int i = 0; i < NUM_TEST; i++)
         {
-           glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY)*STEP_CURSOR);
-           glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY-crowler->dataValue[i])*STEP_CURSOR);
+            if(crowler->dataValue[i] == HEIGHT_OUTRANGE_BAR)
+                glColor3ub(0,0,0);
+            else
+                glColor3ub(0,255,0);
+           glVertex2i((crowler->posX+i)*STEP_CURSOR+WITH_POINT/2,(crowler->posY)*STEP_CURSOR);
+           glVertex2i((crowler->posX+i)*STEP_CURSOR+WITH_POINT/2,(crowler->posY-crowler->dataValue[i])*STEP_CURSOR);
         }
     glEnd();
-    glPointSize(STEP_CURSOR);
+
+    glPointSize(WITH_POINT);
+    glColor3ub(255,0,0);
     glBegin(GL_POINTS);
         for(int i = 0; i < NUM_TEST; i++)
         {
-           glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY-crowler->dataTime[i])*STEP_CURSOR);
+            if(crowler->dataValue[i] == HEIGHT_OUTRANGE_BAR)
+                glColor3ub(255,0,0);
+            else
+                glColor3ub(0,0,255);
+            glVertex2i((crowler->posX+i)*STEP_CURSOR+WITH_POINT/2,(crowler->posY-crowler->dataTime[i])*STEP_CURSOR);
         }
     glEnd();
 }
