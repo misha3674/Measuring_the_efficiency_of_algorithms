@@ -4,11 +4,8 @@
 #include "glut/include/glut.h"
 #include <stdio.h>
 #include <string.h>
-#define HEIGHT_AREA 2
-#define WIDTH_AREA 8
-#define SHIFT_TOP 1.5
-#define WITH_POINT 8
-listTextArea* pPressArea = 0;
+#include "proccessing.h"
+
 
 void draw_layer(int pos_x, int pos_y, int w, int h);
 
@@ -73,6 +70,8 @@ void draw_TextArea_list(listTextArea* pHead)
     if(pHead == NULL)
         return;
     // draw layer
+    listTextArea* presArea = NULL;
+    presArea = getPressArea();
     crowler = pHead->pNext;
     glColor3ub(255, 255, 255);
     while(crowler->pNext != NULL)
@@ -101,9 +100,9 @@ void draw_TextArea_list(listTextArea* pHead)
     glEnd();
     // border
     glColor3ub(0, 0, 255);
-    if(pPressArea != NULL) // getPressArea()
+    if(presArea != NULL) // getPressArea()
     {
-        crowler = pPressArea;
+        crowler = presArea;
         glLineWidth(2);
             glBegin(GL_LINES);
                 glVertex2i( (crowler->mX+crowler->shift_area)*STEP_CURSOR,
@@ -150,62 +149,7 @@ void draw_TextArea_list(listTextArea* pHead)
 
 }
 //---------------------------------------------------------------------------------------------------------
-void proccesing_text_area(listTextArea* pHead,int x, int y)
-{
-    listTextArea* crowler = pHead->pNext;
-    // size area;
-    while(crowler->pNext != NULL)
-    {
-        if( ((crowler->mX+crowler->shift_area) <= x) && ( (crowler->mX+crowler->shift_area+WIDTH_AREA) >= x))
-            if( ((crowler->mY-SHIFT_TOP) <= y) && ( (crowler->mY-SHIFT_TOP+HEIGHT_AREA) >= y))
-            {
-                pPressArea = crowler;
-                return;
-            }
-        crowler = crowler->pNext;
-    }
-    if( ((crowler->mX+crowler->shift_area) <= x) && ( (crowler->mX+crowler->shift_area+WIDTH_AREA) >= x))
-        if( ((crowler->mY-SHIFT_TOP) <= y) && ( (crowler->mY-SHIFT_TOP+HEIGHT_AREA) >= y))
-        {
-            pPressArea = crowler;
-            return;
-        }
-    pPressArea = NULL;
-}
-//---------------------------------------------------------------------------------------------------------
-void processing_text_textArea(int aKey)
-{
-    if(pPressArea != NULL)
-        switch(aKey)
-        {
-             case GLFW_KEY_0:
-             case GLFW_KEY_1:
-             case GLFW_KEY_2:
-             case GLFW_KEY_3:
-             case GLFW_KEY_4:
-             case GLFW_KEY_5:
-             case GLFW_KEY_6:
-             case GLFW_KEY_7:
-             case GLFW_KEY_8:
-             case GLFW_KEY_9:
-             case GLFW_KEY_PERIOD:
-             {
-                if(pPressArea->i < (NUM_SMB-1))
-                {
-                    pPressArea->text[pPressArea->i] = aKey;
-                    (pPressArea->i)++;
-                }
-             } break;
-             case GLFW_KEY_BACKSPACE:
-                if(pPressArea->i > 0)
-                {
-                    pPressArea->text[pPressArea->i - 1] = 0;
-                    (pPressArea->i)--;
-                }
-            break;
-            default: break;
-        }
-}
+
 //-----------------------------------------------------------------
 void draw_Button_list(sListButton* pHead)
 {

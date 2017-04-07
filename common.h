@@ -12,6 +12,10 @@
 #define NUM_ALGORITHM          3
 #define HEIGHT_OUTRANGE_BAR    2
 #define MIN_HEIGHT_INRANGE_BAR 3
+#define HEIGHT_AREA 2
+#define WIDTH_AREA 8
+#define SHIFT_TOP 1.5
+#define WITH_POINT 8
 /* 0 - GA 1- SA 2 - PSO */
 typedef void (*pf)();
 

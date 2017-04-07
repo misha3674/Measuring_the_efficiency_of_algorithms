@@ -16,9 +16,23 @@ typedef struct
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#define GLFW_KEY_0                  48
+#define GLFW_KEY_1                  49
+#define GLFW_KEY_2                  50
+#define GLFW_KEY_3                  51
+#define GLFW_KEY_4                  52
+#define GLFW_KEY_5                  53
+#define GLFW_KEY_6                  54
+#define GLFW_KEY_7                  55
+#define GLFW_KEY_8                  56
+#define GLFW_KEY_9                  57
+#define GLFW_KEY_PERIOD             46  /* . */
+#define GLFW_KEY_BACKSPACE          259
+
 int gTest = 0;
 eState gState = PREPARE_SETTINGS;
 void struct_copy(sResult* dest,sLine* source);
+listTextArea* pPressArea = NULL;
 
 void proccesing_button_list(sListButton* pHead,int click_x,int click_y)
 {
@@ -126,5 +140,65 @@ void struct_copy(sResult* dest,sLine* source)
     dest->iter  = source->iter;
     dest->mX    = source->coor.mX;
     dest->mY    = source->coor.mY;
+}
+void proccesing_text_area(listTextArea* pHead,int x, int y)
+{
+    listTextArea* crowler = pHead->pNext;
+    // size area;
+    while(crowler->pNext != NULL)
+    {
+        if( ((crowler->mX+crowler->shift_area) <= x) && ( (crowler->mX+crowler->shift_area+WIDTH_AREA) >= x))
+            if( ((crowler->mY-SHIFT_TOP) <= y) && ( (crowler->mY-SHIFT_TOP+HEIGHT_AREA) >= y))
+            {
+                pPressArea = crowler;
+                return;
+            }
+        crowler = crowler->pNext;
+    }
+    if( ((crowler->mX+crowler->shift_area) <= x) && ( (crowler->mX+crowler->shift_area+WIDTH_AREA) >= x))
+        if( ((crowler->mY-SHIFT_TOP) <= y) && ( (crowler->mY-SHIFT_TOP+HEIGHT_AREA) >= y))
+        {
+            pPressArea = crowler;
+            return;
+        }
+    pPressArea = NULL;
+}
+//---------------------------------------------------------------------------------------------------------
+void processing_text_textArea(int aKey)
+{
+    if(pPressArea != NULL)
+        switch(aKey)
+        {
+             case GLFW_KEY_0:
+             case GLFW_KEY_1:
+             case GLFW_KEY_2:
+             case GLFW_KEY_3:
+             case GLFW_KEY_4:
+             case GLFW_KEY_5:
+             case GLFW_KEY_6:
+             case GLFW_KEY_7:
+             case GLFW_KEY_8:
+             case GLFW_KEY_9:
+             case GLFW_KEY_PERIOD:
+             {
+                if(pPressArea->i < (NUM_SMB-1))
+                {
+                    pPressArea->text[pPressArea->i] = aKey;
+                    (pPressArea->i)++;
+                }
+             } break;
+             case GLFW_KEY_BACKSPACE:
+                if(pPressArea->i > 0)
+                {
+                    pPressArea->text[pPressArea->i - 1] = 0;
+                    (pPressArea->i)--;
+                }
+            break;
+            default: break;
+        }
+}
+listTextArea* getPressArea()
+{
+    return pPressArea;
 }
 
