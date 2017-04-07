@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "common.h"
 #include "load.h"
+#include "load_result.h"
 #include "draw.h"
 #include <GL/gl.h>
 #include <GL/glext.h>
@@ -10,6 +11,7 @@
 
 GLFWwindow* window;
 sListText*    pHeadList_TextSetting;
+sListText*    pHeadList_TextResult;
 listTextArea* pHeadList_TextAreaSetting;
 sListTexture* pHeadList_TextuteTask;
 sListTexture* pHeadList_TextuteTask1;
@@ -17,6 +19,9 @@ sListTexture* pHeadList_TextuteTask2;
 sListTexture* pHeadList_TextuteTask3;
 sListTexture* pHeadList_TextuteTask4;
 sListButton*  pHeadList_TextButtonSetting;
+sListButton*  pHeadList_TextButtonResult;
+sListScale*   pHeadList_Scale;
+sResult** result;
 eState state = PREPARE_SETTINGS;
 
 int gl_init();
@@ -73,18 +78,23 @@ int main()
            break;
            case PREPARE_RESULT:
            {
-                //run_algorithm();
-
+                result = run_algorithm();
+                pHeadList_Scale =  load_scale(result);
+                pHeadList_TextResult = load_Text_result();
+                pHeadList_TextButtonResult = load_Button_result();
+                setState(RESULTS);
            }
            break;
            case RESULTS:
            {
-
+                //draw_scale(pHeadList_Scale);
+                draw_Text_list(pHeadList_TextResult);
+                draw_Button_list(pHeadList_TextButtonResult);
            }
            break;
            case WAITING:
            {
-
+                setState(PREPARE_RESULT);
            }
            break;
            default: break;
@@ -149,9 +159,8 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
             proccesing_text_area(pHeadList_TextAreaSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
             proccesing_button_list(pHeadList_TextButtonSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
         }
-        else
-            if(state == RESULTS)
-            {
-
-            }
+        if(state == RESULTS)
+        {
+            proccesing_button_list(pHeadList_TextButtonResult,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
+        }
 }

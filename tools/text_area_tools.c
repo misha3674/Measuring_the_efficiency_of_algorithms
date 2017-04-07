@@ -25,12 +25,12 @@ listTextArea* add_textArea_list(listTextArea* pHead,const char* aName,int aPos_x
 
     newNode = (listTextArea*)malloc(sizeof(listTextArea));
 
-    strcpy(newNode->name,aName);
+    strcpy(&(newNode->name[0]),aName);
     newNode->mX = aPos_x;
     newNode->mY = aPos_y;
     newNode->hight = DEF_MAX_VALUE;
     newNode->low   = DEF_MIN_VALUE;
-    newNode->shift_area = (int)((strlen(&newNode->name[0])*PLACE_ONE_SMB_PX)/STEP_CURSOR);
+    newNode->shift_area = (int)( (strlen(&(newNode->name[0]))*PLACE_ONE_SMB_PX)/STEP_CURSOR);
     newNode->i = fillDef(&(newNode->text[0]),DEF_VALUE);
     newNode->pNext = NULL;
 

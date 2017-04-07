@@ -1,13 +1,16 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#define NUM_SMB 25
+#define NUM_SMB 8
+#define LEN_NAME 25
 #define STEP_CURSOR 10
 #define MAX_SMB_LIST 50
 #define SCREEN_WIDTH        1300
 #define SCREEN_HEIGHT       690
 #define IS_FULL_SCREEN      0
-
+#define NUM_TEST 100
+#define NUM_ALGORITHM 3
+/* 0 - GA 1- SA 2 - PSO */
 typedef void (*pf)();
 
 typedef enum
@@ -24,7 +27,7 @@ struct listTextArea
     int mX;
     int mY;
     char text[NUM_SMB];
-    char name[NUM_SMB];
+    char name[LEN_NAME];
     int i; // the number of number in area
     int shift_area;
     double low;
@@ -58,10 +61,28 @@ struct sListButton
     pf action;
     struct sListButton* pNext;
 };
-
-typedef struct sListText sListText;
+struct sListScale
+{
+    int posX;
+    int posY;
+    int w;
+    int h;
+    int* dataValue;
+    int* dataTime;
+    struct sListScale* pNext;
+};
+typedef struct
+{
+    double mX;
+    double mY;
+    double value;
+    double time;
+    int iter;
+}sResult;
+typedef struct sListText    sListText;
 typedef struct listTextArea listTextArea;
 typedef struct sListTexture sListTexture;
-typedef struct sListButton sListButton;
+typedef struct sListButton  sListButton;
+typedef struct sListScale   sListScale;
 
 #endif // COMMON_H

@@ -9,7 +9,13 @@ SOURCES += main.c \
     draw.c \
     tools/text_area_tools.c \
     tools/texture_tools.c \
-    proccessing.c
+    proccessing.c \
+    load_result.c \
+    algorithm/l_a_genetic_algorithm.c \
+    algorithm/l_a_particle_swarm.c \
+    algorithm/l_a_simulatedannealing.c \
+    algorithm/time_chrono.c \
+    algorithm/commonalg.c
 
 QMAKE_CFLAGS += -std=c11
 
@@ -32,4 +38,8 @@ HEADERS += \
     glut/include/glut.h \
     tools/text_area_tools.h \
     tools/texture_tools.h \
-    proccessing.h
+    proccessing.h \
+    load_result.h \
+    algorithm/list2.h \
+    algorithm/time_chrono.h \
+    algorithm/commonalg.h

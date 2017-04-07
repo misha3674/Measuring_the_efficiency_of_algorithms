@@ -1,9 +1,24 @@
 #include "common.h"
 #include "proccessing.h"
+typedef struct
+{
+   double mX;
+   double mY;
+}sCoor;
+typedef struct
+{
+    sCoor coor;
+    double value;
+    double time;
+    int iter;
+}sLine;
+#include "algorithm/list2.h"
 #include <stdlib.h>
 #include <stdio.h>
 int gTest = 0;
 eState gState = PREPARE_SETTINGS;
+void struct_copy(sResult* dest,sLine* source);
+
 void proccesing_button_list(sListButton* pHead,int click_x,int click_y)
 {
     sListButton* crowler = NULL;
@@ -28,34 +43,105 @@ void proccesing_button_list(sListButton* pHead,int click_x,int click_y)
             return;
         }
 }
+//-------------------------------------------------------------------------------------------------------
 void action_button_left()
 {
-    printf("Button left\n");
     gTest--;
     if(gTest < 0)
         gTest = 3;
 }
+//-------------------------------------------------------------------------------------------------------
 void action_button_right()
 {
-    printf("Button right\n");
     gTest++;
     if(gTest > 3)
         gTest = 0;
 }
+//-------------------------------------------------------------------------------------------------------
 int getTest()
 {
     return gTest;
 }
-void action_button_result()
+//-------------------------------------------------------------------------------------------------------
+void action_button_settting()
 {
-    printf("Result\n");
-    gState = RESULTS;
+    gState = WAITING;
 }
+//-------------------------------------------------------------------------------------------------------
 void getState(eState* aState)
 {
     *aState = gState;
 }
+//-------------------------------------------------------------------------------------------------------
 void setState(eState newState)
 {
     gState=newState;
 }
+//-------------------------------------------------------------------------------------------------------
+void action_button_result()
+{
+    gState = SETTINGS;
+}
+//-------------------------------------------------------------------------------------------------------
+sResult** run_algorithm()
+{
+   double max_timeGA   = 0.;
+   double max_timeSA   = 0.;
+   double max_timePSO  = 0.;
+   double min_valueGA  = 0.;
+   double min_valueSA  = 0.;
+   double min_valuePSO = 0.;
+   sResult** resultAlgorithm;
+   sResult* resGA;
+   sResult* resSA;
+   sResult* resPSO;
+   sLine tmp;
+   resGA = (sResult*)malloc(sizeof(sResult)*NUM_TEST);
+   resSA = (sResult*)malloc(sizeof(sResult)*NUM_TEST);
+   resPSO = (sResult*)malloc(sizeof(sResult)*NUM_TEST);
+   resultAlgorithm = (sResult**)malloc(sizeof(sResult*)*NUM_ALGORITHM);
+   //getDataTextArea();
+   int i = 0;
+   // init min and max variable
+   tmp  = genetic_algorithm(3,7,8,9); //1,10,10,10
+     struct_copy(resGA+i,&tmp);
+   tmp  = simulatedAnnealing(3,10,0.0001,0.05,1); //1,10,0.0001,0.1,1
+     struct_copy(resGA+i,&tmp);
+   tmp = particle_swarm_optimization(3,10,0.4,0.7,0.75); //1,10,0.2,0.8,0.9
+     struct_copy(resGA+i,&tmp);
+   for(i = 1; i < NUM_TEST;i++)
+   {
+       tmp  = genetic_algorithm(3,7,8,9); //1,10,10,10
+         struct_copy(resGA+i,&tmp);
+       tmp  = simulatedAnnealing(3,10,0.0001,0.05,1); //1,10,0.0001,0.1,1
+         struct_copy(resGA+i,&tmp);
+       tmp = particle_swarm_optimization(3,10,0.4,0.7,0.75); //1,10,0.2,0.8,0.9
+         struct_copy(resGA+i,&tmp);
+
+        if(max_timeGA < resGA[i].time)
+            max_timeGA = resGA[i].time;
+        if(max_timeSA < resSA[i].time)
+            max_timeSA = resSA[i].time;
+        if(max_timePSO < resPSO[i].time)
+            max_timePSO = resPSO[i].time;
+        if(min_valueGA > resGA[i].value)
+            min_valueGA = resGA[i].value;
+        if(min_valueSA > resSA[i].value)
+            min_valueSA = resSA[i].value;
+        if(min_valuePSO > resPSO[i].value)
+            min_valuePSO = resPSO[i].value;
+   }
+   resultAlgorithm[0] = resGA;
+   resultAlgorithm[1] = resSA;
+   resultAlgorithm[2] = resPSO;
+   return resultAlgorithm;
+}
+void struct_copy(sResult* dest,sLine* source)
+{
+    dest->value = source->value;
+    dest->time  = source->time;
+    dest->iter  = source->iter;
+    dest->mX    = source->coor.mX;
+    dest->mY    = source->coor.mY;
+}
+

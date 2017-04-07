@@ -19,9 +19,6 @@
 #define SIZE_FORM_H 15
 
 void clear_massiv(char* mas);
-void action_button_left();
-void action_button_right();
-void action_button_result();
 
 sListText*    load_Text_result()
 {
@@ -221,9 +218,18 @@ sListButton*  load_Button_setting()
 
     pButton = add_button_list(pHead,120,63);
     set_name_button(pButton,"Result");
-    set_action_button(pButton,&action_button_result);
+    set_action_button(pButton,&action_button_settting);
     set_size_button(pButton,9,4);
     return pHead;
+}
+//------------------------------------------------------------------------------------------------------
+sListScale* load_scale(sResult** result)
+{
+    /*sListScale* pHead = NULL;
+    pHead = innit_scale_list();
+    // pos_x,pos_y,w,h,data
+    for(int i = 0; i < NUM_ALGORITHM; i++)
+        create_scale(1,23*(i+1),100,22,result[i]);*/
 }
 //---------------------------------------------------------------------------------------------------
 void clear_massiv(char* mas)

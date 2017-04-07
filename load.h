@@ -10,6 +10,6 @@ sListTexture* load_Texture_task3();
 sListTexture* load_Texture_task4();
 
 sListButton*  load_Button_setting();
-
+sListScale*   load_scale(sResult** result);
 
 #endif // LOAD_H

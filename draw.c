@@ -4,11 +4,12 @@
 #include "glut/include/glut.h"
 #include <stdio.h>
 #include <string.h>
-
 #define HEIGHT_AREA 2
 #define WIDTH_AREA 8
 #define SHIFT_TOP 1.5
 listTextArea* pPressArea = 0;
+
+void draw_layer(int pos_x, int pos_y, int w, int h);
 
 void draw_Text_list(sListText* pHead)
 {
@@ -16,7 +17,6 @@ void draw_Text_list(sListText* pHead)
     sListText* crowler = pHead->pNext;
     if(pHead == NULL)
         return;
-
     while(crowler->pNext != NULL)
     {
         glColor3ub(255,255,255);
@@ -29,6 +29,7 @@ void draw_Text_list(sListText* pHead)
     for(c = 0; crowler->text[c] != 0; c++)
         glutBitmapCharacter(GLUT_BITMAP_9_BY_15,crowler->text[c]);
 }
+//---------------------------------------------------------------------------------------------------------
 void draw_Texture_list(sListTexture* pHead)
 {
     sListTexture* crowler = NULL;
@@ -63,13 +64,13 @@ void draw_Texture_list(sListTexture* pHead)
             glVertex2i( crowler->mX*STEP_CURSOR,        (crowler->mY+crowler->height)*STEP_CURSOR);
         glEnd();
 }
+//---------------------------------------------------------------------------------------------------------
 void draw_TextArea_list(listTextArea* pHead)
 {
     int c = 0;
     listTextArea* crowler = NULL;
     if(pHead == NULL)
         return;
-
     // draw layer
     crowler = pHead->pNext;
     glColor3ub(255, 255, 255);
@@ -97,7 +98,6 @@ void draw_TextArea_list(listTextArea* pHead)
         glVertex2i( (crowler->mX+crowler->shift_area)*STEP_CURSOR,
                     (crowler->mY-SHIFT_TOP+HEIGHT_AREA)*STEP_CURSOR);
     glEnd();
-
     // border
     glColor3ub(0, 0, 255);
     if(pPressArea != NULL) // getPressArea()
@@ -134,11 +134,9 @@ void draw_TextArea_list(listTextArea* pHead)
         glRasterPos2i(crowler->mX*STEP_CURSOR,crowler->mY*STEP_CURSOR);
         for(c = 0; crowler->name[c] != 0; c++)
             glutBitmapCharacter(GLUT_BITMAP_9_BY_15,crowler->name[c]);
-
         glRasterPos2i((crowler->mX+crowler->shift_area+1)*STEP_CURSOR,crowler->mY*STEP_CURSOR);
         for(c = 0; crowler->text[c] != 0; c++)
             glutBitmapCharacter(GLUT_BITMAP_9_BY_15,crowler->text[c]);
-
         crowler = crowler->pNext;
     }
     glRasterPos2i(crowler->mX*STEP_CURSOR,crowler->mY*STEP_CURSOR);
@@ -150,6 +148,7 @@ void draw_TextArea_list(listTextArea* pHead)
         glutBitmapCharacter(GLUT_BITMAP_9_BY_15,crowler->text[c]);
 
 }
+//---------------------------------------------------------------------------------------------------------
 void proccesing_text_area(listTextArea* pHead,int x, int y)
 {
     listTextArea* crowler = pHead->pNext;
@@ -172,6 +171,7 @@ void proccesing_text_area(listTextArea* pHead,int x, int y)
         }
     pPressArea = NULL;
 }
+//---------------------------------------------------------------------------------------------------------
 void processing_text_textArea(int aKey)
 {
     if(pPressArea != NULL)
@@ -189,7 +189,7 @@ void processing_text_textArea(int aKey)
              case GLFW_KEY_9:
              case GLFW_KEY_PERIOD:
              {
-                if(pPressArea->i < NUM_SMB)
+                if(pPressArea->i < (NUM_SMB-1))
                 {
                     pPressArea->text[pPressArea->i] = aKey;
                     (pPressArea->i)++;
@@ -252,9 +252,64 @@ void draw_Button_list(sListButton* pHead)
         }
         glRasterPos2i((crowler->mX+1)*STEP_CURSOR,(crowler->mY+2.5)*STEP_CURSOR);
         for(c = 0; crowler->name[c] != 0; c++)
-        {
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,crowler->name[c]);
-        }
 }
+//---------------------------------------------------------------------------------------------------------
+void draw_scale(sListScale* pHead)
+{
+    sListScale* crowler = NULL;
+    if(pHead == NULL)
+        return;
+    crowler = pHead->pNext;
+    while(crowler->pNext != NULL)
+    {
+        //приймає верхній правий кут
+        draw_layer(crowler->posX,crowler->posY-crowler->h,
+                   crowler->w, crowler->h);
+        glLineWidth(STEP_CURSOR);
+        glBegin(GL_LINES);
+            for(int i = 0; i < NUM_TEST; i++)
+            {
+               glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY)*STEP_CURSOR);
+               glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY-crowler->dataValue[i])*STEP_CURSOR);
+            }
+        glEnd();
+        glPointSize(STEP_CURSOR);
+        glBegin(GL_POINTS);
+            for(int i = 0; i < NUM_TEST; i++)
+            {
+               glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY-crowler->dataTime[i])*STEP_CURSOR);
+            }
+        glEnd();
+        crowler = crowler->pNext;
+    }
+    draw_layer(crowler->posX,crowler->posY-crowler->h,
+               crowler->w, crowler->h);
+    glLineWidth(STEP_CURSOR);
+    glBegin(GL_LINES);
+        for(int i = 0; i < NUM_TEST; i++)
+        {
+           glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY)*STEP_CURSOR);
+           glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY-crowler->dataValue[i])*STEP_CURSOR);
+        }
+    glEnd();
+    glPointSize(STEP_CURSOR);
+    glBegin(GL_POINTS);
+        for(int i = 0; i < NUM_TEST; i++)
+        {
+           glVertex2i((crowler->posX+i)*STEP_CURSOR,(crowler->posY-crowler->dataTime[i])*STEP_CURSOR);
+        }
+    glEnd();
+}
+//---------------------------------------------------------------------------------------------------------
+void draw_layer(int pos_x, int pos_y, int w, int h)
+{
+    glColor3ub(255,255,255);
+    glBegin(GL_QUADS);
+        glVertex2i( (pos_x)*STEP_CURSOR,      pos_y*STEP_CURSOR);
+        glVertex2i( (pos_x+w)*STEP_CURSOR,    pos_y*STEP_CURSOR);
+        glVertex2i( (pos_x+w)*STEP_CURSOR,   (pos_y+h)*STEP_CURSOR);
+        glVertex2i( pos_x*STEP_CURSOR,        (pos_y+h)*STEP_CURSOR);
+    glEnd();
 
-//--------------------------------------------------------------
+}
