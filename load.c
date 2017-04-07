@@ -20,7 +20,7 @@
 
 void clear_massiv(char* mas);
 
-sListText*    load_Text_result()
+sListText*    load_Text_result(listTextArea* data_input)
 {
      sListText* pHead = NULL;
      pHead = innit_text_list(); // create new list
@@ -53,11 +53,11 @@ sListText*    load_Text_result()
          add_text_list(pHead,str_minScaleT,start_text_right_bar,start_y+=LINE_HEIGHT);
      sprintf(str_maxScaleT,"ScaleTimeH: %g",0.6);
          add_text_list(pHead,str_maxScaleT,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_parent,"Parent: %i",(int)15);
+     sprintf(str_parent,"Parent: %i",(int)getInputData(data_input,"Parent"));
          add_text_list(pHead,str_parent,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_child,"Child: %i",(int)14);
+     sprintf(str_child,"Child: %i",(int)getInputData(data_input,"Child"));
           add_text_list(pHead,str_child,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_mutant,"mutant: %i",(int)3);
+     sprintf(str_mutant,"Mutant: %i",(int)getInputData(data_input,"Mutant"));
           add_text_list(pHead,str_mutant,start_text_right_bar,start_y+=LINE_HEIGHT);
      clear_massiv(str_minScaleV);
      clear_massiv(str_maxScaleV);

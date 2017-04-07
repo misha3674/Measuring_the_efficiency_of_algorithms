@@ -7,5 +7,5 @@ listTextArea* clear_textArea_list(listTextArea* pHead);
 
 void set_range_last_area();
 void set_default_last_area();
-
+double getInputData(listTextArea* pHead,const char* namearea);
 #endif // TEXT_AREA_TOOLS_H

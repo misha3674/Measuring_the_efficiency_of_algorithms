@@ -44,6 +44,7 @@ int main()
 
            case PREPARE_SETTINGS:
            {
+                // clear memory if you need
                 pHeadList_TextuteTask1     = load_Texture_task1();
                 pHeadList_TextuteTask2     = load_Texture_task2();
                 pHeadList_TextuteTask3     = load_Texture_task3();
@@ -78,9 +79,9 @@ int main()
            break;
            case PREPARE_RESULT:
            {
-                result = run_algorithm();
+                result = run_algorithm(pHeadList_TextAreaSetting);
                 pHeadList_Scale =  load_scale(result);
-                pHeadList_TextResult = load_Text_result();
+                pHeadList_TextResult = load_Text_result(pHeadList_TextAreaSetting);
                 pHeadList_TextButtonResult = load_Button_result();
                 setState(RESULTS);
            }

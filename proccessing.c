@@ -13,6 +13,7 @@ typedef struct
     int iter;
 }sLine;
 #include "algorithm/list2.h"
+#include "tools/text_area_tools.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -98,7 +99,7 @@ void action_button_result()
     gState = SETTINGS;
 }
 //-------------------------------------------------------------------------------------------------------
-sResult** run_algorithm()
+sResult** run_algorithm(listTextArea * data_input)
 {
    sResult** resultAlgorithm;
    sResult* resGA;
@@ -110,10 +111,14 @@ sResult** run_algorithm()
    resSA = (sResult*)malloc(sizeof(sResult)*NUM_TEST);
    resPSO = (sResult*)malloc(sizeof(sResult)*NUM_TEST);
    resultAlgorithm = (sResult**)malloc(sizeof(sResult*)*NUM_ALGORITHM);
-   //getDataTextArea();
+
+   int parent = (int)getInputData(data_input,"Parent");
+   int child  = (int)getInputData(data_input,"Child");
+   int mutant = (int)getInputData(data_input,"Mutant");
+    printf("pcm %i %i %i\n",parent,child,mutant);
    int i = 0;
    // init min and max variable
-   tmp  = genetic_algorithm(gTest+1,7,8,9); //1,10,10,10
+   tmp  = genetic_algorithm(gTest+1,parent,child,mutant); //1,10,10,10
      struct_copy(resGA+i,&tmp);
    tmp  = simulatedAnnealing(gTest+1,10,0.0001,0.05,1); //1,10,0.0001,0.1,1
      struct_copy(resSA+i,&tmp);

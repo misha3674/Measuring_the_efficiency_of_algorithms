@@ -3,14 +3,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
 #define DEF_MIN_VALUE 0
 #define DEF_MAX_VALUE 50
 #define DEF_VALUE 10
 #define PLACE_ONE_SMB_PX 12
-
 int fillDef(char *fill,float def);
-
 listTextArea* innit_textArea_list()
 {
     listTextArea* askHead = NULL;
@@ -65,4 +62,23 @@ int fillDef(char *fill,float def)
     return length;
 }
 //-----------------------------------------------------------
-
+double getInputData(listTextArea* pHead,const char* namearea)
+{
+    double numf = 0.;
+    listTextArea* crowler = pHead->pNext;
+    while(crowler->pNext != NULL)
+    {
+        if(strcmp(namearea,&(crowler->name[0])) == 0)
+        {
+            numf = atof(&(crowler->text[0]));
+            return numf;
+        }
+        crowler = crowler->pNext;
+    }
+    if(strcmp(namearea,&(crowler->name[0])) == 0)
+    {
+        numf = atof(&(crowler->text[0]));
+        return numf;
+    }
+    return -1;
+}

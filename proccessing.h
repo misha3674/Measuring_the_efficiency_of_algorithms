@@ -12,6 +12,6 @@ void getState(eState* aState);
 void setState(eState newState);
 int getTest();
 listTextArea* getPressArea();
-sResult** run_algorithm();
+sResult** run_algorithm(listTextArea * data_input);
 
 #endif // PROCCESSING_H
