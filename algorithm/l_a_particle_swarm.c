@@ -84,7 +84,7 @@ sLine particle_swarm_optimization(unsigned int num_sys, const unsigned num_prat,
             if( getValue( data_particle[i].best ) < getValue( gBestCoor ) )
                 gBestCoor = data_particle[i].best;
         }
-        while( !isFind ) // ? < 10 000
+        while(!isFind)
         {
              for(int i = 0; i < num_pratticle; i++)
              {
@@ -114,6 +114,8 @@ sLine particle_swarm_optimization(unsigned int num_sys, const unsigned num_prat,
              }
              isFind = convergenceTest_v3(data_particle);
              iter++;
+             if(iter > MAX_LOOP)
+                 break;
         }
        elapsed_time = elapsed();
        result.coor.mX = gBestCoor.mX;

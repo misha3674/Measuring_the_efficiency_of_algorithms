@@ -36,17 +36,25 @@ listTextArea* add_textArea_list(listTextArea* pHead,const char* aName,int aPos_x
     crowler->pNext = newNode;
     return newNode;
 }
-listTextArea* clear_textArea_list(listTextArea* pHead)
+void clear_textArea_list(listTextArea* pHead)
 {
-    return NULL;
+    if(pHead == NULL)
+        return;
+    listTextArea* crowler = NULL;
+    while(pHead->pNext != NULL)
+    {
+        crowler = pHead;
+        pHead = crowler->pNext;
+        free(crowler);
+    }
+    free(pHead);
+    pHead = NULL;
 }
-void set_range_last_area()
+void set_limit_def_area(listTextArea* pArea,double min, double max, double def)
 {
-
-}
-void set_default_last_area()
-{
-
+    pArea->low = min;
+    pArea->hight = max;
+    pArea->i = fillDef(&(pArea->text[0]),def);
 }
 // ---------------------------------
 int fillDef(char *fill,float def)

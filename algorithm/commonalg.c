@@ -2,7 +2,6 @@
 #include <math.h>
 #include <stdlib.h>
 #define PRECISION 0.0005
-
 //---------------------------------------------------------------------------------------------------
 double calculateDelatFunction_v1(double x1, double x2)
 {

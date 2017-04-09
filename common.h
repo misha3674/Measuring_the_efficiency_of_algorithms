@@ -16,6 +16,17 @@
 #define WIDTH_AREA 8
 #define SHIFT_TOP 1.5
 #define WITH_POINT 8
+#define RANGE_SCALE_TIME 0.01
+#define RANGE_SCALE_VALUE 1
+#define SHIFT_SCALE 1
+#define LEVEL_SCALE_GA 23
+#define LEVEL_SCALE_PSO 46
+#define LEVEL_SCALE_SA 69
+#define SIZE_SCALE_W 100
+#define SIZE_SCALE_H 22
+#define GA 0
+#define SA 1
+#define PSO 2
 /* 0 - GA 1- SA 2 - PSO */
 typedef void (*pf)();
 

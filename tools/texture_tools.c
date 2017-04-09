@@ -6,8 +6,6 @@
 #include "freeimage/FreeImage.h"
 #define DEF_BUTTON_W 7
 #define DEF_BUTTON_H 7
-#define RANGE_SCALE_TIME 0.01
-#define RANGE_SCALE_VALUE 1
 //===================================================================================
 //===================================================================================
 FIBITMAP *loadImage(const char *filename)
@@ -21,8 +19,6 @@ FIBITMAP *loadImage(const char *filename)
        printf("Not found\n");
        return NULL;
     }
-    printf("Succsses\n");
-
     return dib1;
 }
 

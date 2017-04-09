@@ -4,6 +4,7 @@
 #define MAX_X  5
 #define MAX_Y  5
 #define MIN    0
+#define MAX_LOOP 6500
 typedef struct
 {
    double mX;

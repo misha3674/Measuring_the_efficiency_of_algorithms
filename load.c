@@ -14,17 +14,39 @@
 #define SIZE_NUM_H 7
 #define SIZE_GRAPH_W 65
 #define SIZE_GRAPH_H 45
-
 #define SIZE_FORM_W 30
 #define SIZE_FORM_H 15
-
 void clear_massiv(char* mas);
 
-sListText*    load_Text_result(listTextArea* data_input)
+sListText*    load_Text_result(listTextArea* data_input, sResult** result)
 {
      sListText* pHead = NULL;
      pHead = innit_text_list(); // create new list
-
+     double min_value[NUM_ALGORITHM] = {0};
+     double max_time[NUM_ALGORITHM] = {0};
+     double max_value[NUM_ALGORITHM] = {0};
+     double min_time[NUM_ALGORITHM] = {0};
+     // init min - max
+     for(int j = 0; j < NUM_ALGORITHM; j++)
+     {
+         max_time[j]  = result[j][0].time;
+         min_value[j] = result[j][0].value;
+     }
+     for(int j = 0; j < NUM_ALGORITHM; j++)
+         for(int i = 0; i < NUM_TEST; i++)
+         {
+             if(max_time[j] < result[j][i].time)
+                 max_time[j] = result[j][i].time;
+             if(min_value[j] > result[j][i].value)
+                 min_value[j] = result[j][i].value;
+         }
+     for(int j = 0; j < NUM_ALGORITHM; j++)
+     {
+         min_time[j]  = max_time[j] - RANGE_SCALE_TIME;
+         max_value[j] = min_value[j] + RANGE_SCALE_VALUE;
+         printf("min_value %g\n",min_value[j]);
+     }
+     /* 0 - GA 1- SA 2 - PSO */
      char str_minScaleV[NUM_CHAR] = {0};// min scale value
      char str_maxScaleV[NUM_CHAR] = {0};// max scale value
      char str_minScaleT[NUM_CHAR] = {0};// min scale time
@@ -45,13 +67,13 @@ sListText*    load_Text_result(listTextArea* data_input)
      int start_y = 4-LINE_HEIGHT; // less on step unit because prioritet
      // print inform  about Simaulated Anealing algorothm
          add_text_list(pHead," GeneticAlgorith",start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_minScaleV,"ScaleValueL: %g",24.1);
+     sprintf(str_minScaleV,"ScaleValueL: %.4g",min_value[GA]);
          add_text_list(pHead,str_minScaleV,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_maxScaleV,"ScaleValueH: %g",24.5 + 1);
+     sprintf(str_maxScaleV,"ScaleValueH: %.4g",max_value[GA]);
          add_text_list(pHead,str_maxScaleV,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_minScaleT,"ScaleTimeL: %g",0.5 - 0.01);
+     sprintf(str_minScaleT,"ScaleTimeL: %g",min_time[GA]);
          add_text_list(pHead,str_minScaleT,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_maxScaleT,"ScaleTimeH: %g",0.6);
+     sprintf(str_maxScaleT,"ScaleTimeH: %.4g",max_time[GA]);
          add_text_list(pHead,str_maxScaleT,start_text_right_bar,start_y+=LINE_HEIGHT);
      sprintf(str_parent,"Parent: %i",(int)getInputData(data_input,"Parent"));
          add_text_list(pHead,str_parent,start_text_right_bar,start_y+=LINE_HEIGHT);
@@ -65,24 +87,28 @@ sListText*    load_Text_result(listTextArea* data_input)
      clear_massiv(str_maxScaleT);
 
      // ----------- WITHIN GRAPH --------------------------
+     int particle = (int)getInputData(data_input,"Particle");
+     double c1    = (double)getInputData(data_input,"KofP (c1)");
+     double c2    = (double)getInputData(data_input,"KofG (c2)");
+     double w     = (double)getInputData(data_input,"Iner (w)");
       start_y = 26-LINE_HEIGHT;
      // print inform  about practicle algorothm
         add_text_list(pHead," ParticleSwarm",start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_minScaleV,"ScaleValueL: %g",24.2);
+     sprintf(str_minScaleV,"ScaleValueL: %.4g",min_value[PSO]);
          add_text_list(pHead,str_minScaleV,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_maxScaleV,"ScaleValueH: %g",23.3 + 1);
+     sprintf(str_maxScaleV,"ScaleValueH: %.4g",max_value[PSO]);
          add_text_list(pHead,str_maxScaleV,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_minScaleT,"ScaleTimeL: %g",0.4 - 0.01);
+     sprintf(str_minScaleT,"ScaleTimeL: %.4g",min_time[PSO]);
          add_text_list(pHead,str_minScaleT,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_maxScaleT,"ScaleTimeH: %g",0.8);
+     sprintf(str_maxScaleT,"ScaleTimeH: %g",max_time[PSO]);
          add_text_list(pHead,str_maxScaleT,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_numPracticle,"NumOfPracticle: %i",(int)16);
+     sprintf(str_numPracticle,"NumOfPracticle: %i",particle);
          add_text_list(pHead,str_numPracticle,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_kofP,"kofP: %g",0.5);
+     sprintf(str_kofP,"kofP: %g",c1);
          add_text_list(pHead,str_kofP,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_kofG,"kofG: %g",0.32);
+     sprintf(str_kofG,"kofG: %g",c2);
          add_text_list(pHead,str_kofG,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_partPrevVelocity,"kofVeloc: %g",0.7);
+     sprintf(str_partPrevVelocity,"kofVeloc: %g",w);
          add_text_list(pHead,str_partPrevVelocity,start_text_right_bar,start_y+=LINE_HEIGHT);
      clear_massiv(str_minScaleV);
      clear_massiv(str_maxScaleV);
@@ -90,21 +116,25 @@ sListText*    load_Text_result(listTextArea* data_input)
      clear_massiv(str_maxScaleT);
 
      // ----------- BOTTON GRAPH --------------------------
+     double iTem  = (double)getInputData(data_input,"Init Temp");
+     double eTem  = (double)getInputData(data_input,"End Temp");
+     double a     = (double)getInputData(data_input,"a -");
+     double b     = (double)getInputData(data_input,"b -");
      start_y = 49-LINE_HEIGHT;
         add_text_list(pHead," SimulatedAnnealing",start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_minScaleV,"ScaleValueL: %g",27.5);
+     sprintf(str_minScaleV,"ScaleValueL: %g",min_value[SA]);
          add_text_list(pHead,str_minScaleV,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_maxScaleV,"ScaleValueH: %g",21.3 + 1);
+     sprintf(str_maxScaleV,"ScaleValueH: %g",max_value[SA]);
          add_text_list(pHead,str_maxScaleV,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_minScaleT,"ScaleTimeL: %g",0.2 - 0.01);
+     sprintf(str_minScaleT,"ScaleTimeL: %g",min_time[SA]);
          add_text_list(pHead,str_minScaleT,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_maxScaleT,"ScaleTimeH: %g",0.47);
+     sprintf(str_maxScaleT,"ScaleTimeH: %g",max_time[SA]);
          add_text_list(pHead,str_maxScaleT,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_parm_func,"  a-%g; b-%i",0.2,(int)1);
+     sprintf(str_parm_func,"a-%g; b-%g",a,b);
          add_text_list(pHead,str_parm_func,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_initalTem,"initTem: %g",10.2);
+     sprintf(str_initalTem,"initTem: %g",iTem);
          add_text_list(pHead,str_initalTem,start_text_right_bar,start_y+=LINE_HEIGHT);
-     sprintf(str_endTem,"EndTem: %g",0.001);
+     sprintf(str_endTem,"EndTem: %g",eTem);
          add_text_list(pHead,str_endTem,start_text_right_bar,start_y+=LINE_HEIGHT);
      return pHead;
 }
@@ -112,6 +142,7 @@ sListText*    load_Text_result(listTextArea* data_input)
 listTextArea* load_TextArea_setting()
 {
     listTextArea* pHead = NULL;
+    listTextArea* currentArea = NULL;
     pHead = innit_textArea_list();
 
     int pos_x = 0;
@@ -119,37 +150,41 @@ listTextArea* load_TextArea_setting()
 
     pos_x = 95;
     pos_y = 2;
-    add_textArea_list(pHead,"Parent",pos_x,pos_y);
+    currentArea = add_textArea_list(pHead,"Parent",pos_x,pos_y);
+    set_limit_def_area(currentArea,1,50,10);
     pos_y+=4;
-    add_textArea_list(pHead,"Child",pos_x,pos_y);
+    currentArea = add_textArea_list(pHead,"Child",pos_x,pos_y);
+    set_limit_def_area(currentArea,1,50,10);
     pos_y+=4;
-    add_textArea_list(pHead,"Mutant",pos_x,pos_y);
-
+    currentArea = add_textArea_list(pHead,"Mutant",pos_x,pos_y);
+    set_limit_def_area(currentArea,1,50,10);
     pos_x = 95;
     pos_y = 25;
-    add_textArea_list(pHead,"Particle",pos_x,pos_y);
+    currentArea = add_textArea_list(pHead,"Particle",pos_x,pos_y);
+    set_limit_def_area(currentArea,1,50,10);
     pos_y+=4;
-    add_textArea_list(pHead,"KofP (c1)",pos_x,pos_y);
+    currentArea = add_textArea_list(pHead,"KofP (c1)",pos_x,pos_y);
+    set_limit_def_area(currentArea,0.05,2,0.2);
     pos_y+=4;
-    add_textArea_list(pHead,"KofG (c2)",pos_x,pos_y);
+    currentArea = add_textArea_list(pHead,"KofG (c2)",pos_x,pos_y);
+    set_limit_def_area(currentArea,0.05,2,0.8);
     pos_y+=4;
-    add_textArea_list(pHead,"Iner (w)",pos_x,pos_y);
-
+    currentArea = add_textArea_list(pHead,"Iner (w)",pos_x,pos_y);
+    set_limit_def_area(currentArea,0.05,2,0.9);
     pos_x = 95;
     pos_y = 48;
-    add_textArea_list(pHead,"decrease Tem",pos_x,pos_y);
+    currentArea = add_textArea_list(pHead,"Init Temp",pos_x,pos_y);
+    set_limit_def_area(currentArea,1,20,10);
     pos_y+=4;
-    add_textArea_list(pHead,"Innit Temp",pos_x,pos_y);
-    pos_y+=4;
-    add_textArea_list(pHead,"End Temp",pos_x,pos_y);
-
+    currentArea = add_textArea_list(pHead,"End Temp",pos_x,pos_y);
+    set_limit_def_area(currentArea,0.0001,1,0.0001);
     pos_x = 95;
     pos_y+=4;
-    add_textArea_list(pHead,"a -",pos_x,pos_y);
+    currentArea = add_textArea_list(pHead,"a -",pos_x,pos_y);
+    set_limit_def_area(currentArea,0.05,2,0.1);
     pos_y+=4;
-    add_textArea_list(pHead,"b -",pos_x,pos_y);
-
-
+    currentArea = add_textArea_list(pHead,"b -",pos_x,pos_y);
+    set_limit_def_area(currentArea,0,4,1);
     return pHead;
 }
 //----------------------------------------------------------------------------------------------------
@@ -227,9 +262,9 @@ sListScale* load_scale(sResult** result)
 {
     sListScale* pHead = NULL;
     pHead = innit_scale_list();
-    create_scale(pHead,1,23,100,22,*(result+0));
-    create_scale(pHead,1,46,100,22,*(result+1));
-    create_scale(pHead,1,69,100,22,*(result+2));
+    create_scale(pHead,1,LEVEL_SCALE_GA, SIZE_SCALE_W,SIZE_SCALE_H,*(result+GA));
+    create_scale(pHead,1,LEVEL_SCALE_PSO,SIZE_SCALE_W,SIZE_SCALE_H,*(result+PSO));
+    create_scale(pHead,1,LEVEL_SCALE_SA, SIZE_SCALE_W,SIZE_SCALE_H,*(result+SA));
     return pHead;
 }
 //---------------------------------------------------------------------------------------------------

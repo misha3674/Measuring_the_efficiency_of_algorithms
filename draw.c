@@ -34,7 +34,7 @@ void draw_Texture_list(sListTexture* pHead)
     if(pHead == NULL)
         return;
     crowler = pHead->pNext;
-    glColor3ub(10,10,130);
+    glColor3ub(255,255,255);
     while(crowler->pNext != NULL)
     {
             glBindTexture(GL_TEXTURE_2D,(crowler->texture));
@@ -100,7 +100,7 @@ void draw_TextArea_list(listTextArea* pHead)
     glEnd();
     // border
     glColor3ub(0, 0, 255);
-    if(presArea != NULL) // getPressArea()
+    if(presArea != NULL)
     {
         crowler = presArea;
         glLineWidth(2);
@@ -209,7 +209,7 @@ void draw_scale(sListScale* pHead)
     while(crowler->pNext != NULL)
     {
         //приймає верхній правий кут
-        draw_layer(crowler->posX,crowler->posY-crowler->h,crowler->w, crowler->h);
+        draw_layer(crowler->posX,crowler->posY - crowler->h,crowler->w, crowler->h);
         glLineWidth(WITH_POINT);
         glBegin(GL_LINES);
             for(int i = 0; i < NUM_TEST; i++)
@@ -235,8 +235,7 @@ void draw_scale(sListScale* pHead)
         glEnd();
         crowler = crowler->pNext;
     }
-
-    draw_layer(crowler->posX,crowler->posY-crowler->h,crowler->w, crowler->h);
+    draw_layer(crowler->posX,crowler->posY - crowler->h,crowler->w, crowler->h);
     glColor3ub(0,0,255);
     glLineWidth(WITH_POINT);
     glBegin(GL_LINES);
@@ -276,3 +275,73 @@ void draw_layer(int pos_x, int pos_y, int w, int h)
     glEnd();
 
 }
+void draw_line(int* x, int* y, int* a, int* b)
+{
+    glColor3ub(0,0,255);
+    glLineWidth(WITH_POINT);
+    glBegin(GL_LINES);
+        glVertex2i(*x*STEP_CURSOR,*y*STEP_CURSOR);
+        glVertex2i(*a*STEP_CURSOR,*b*STEP_CURSOR);
+    glEnd();
+}
+void draw_hover(sResult* res, int* x, int* y)
+{
+    char str_coor_x[25] = {0};
+    char str_coor_y[25] = {0};
+    char str_value[25] = {0};
+    char str_time[25] = {0};
+    char str_iter[25] = {0};
+
+    glColor3ub(255, 0, 0);
+    glBegin(GL_QUADS);
+        glVertex2i( (*x+2)*STEP_CURSOR,     *y*STEP_CURSOR);
+        glVertex2i( (*x+12)*STEP_CURSOR,    *y*STEP_CURSOR);
+        glVertex2i( (*x+12)*STEP_CURSOR,   (*y+6)*STEP_CURSOR);
+        glVertex2i( (*x+2)*STEP_CURSOR,    (*y+6)*STEP_CURSOR);
+    glEnd();
+    glColor3ub(0, 255, 255);
+    glLineWidth(2);
+    glBegin(GL_LINES);
+        if(*y < LEVEL_SCALE_GA)
+        {
+            glVertex2i( (*x+1.5)*STEP_CURSOR,     (0)*STEP_CURSOR);
+            glVertex2i( (*x+1.5)*STEP_CURSOR,    (LEVEL_SCALE_GA)*STEP_CURSOR);
+        }
+        if((*y > LEVEL_SCALE_PSO) && (*y < LEVEL_SCALE_SA))
+        {
+            glVertex2i( (*x+1.5)*STEP_CURSOR,     (LEVEL_SCALE_PSO)*STEP_CURSOR);
+            glVertex2i( (*x+1.5)*STEP_CURSOR,    (LEVEL_SCALE_SA)*STEP_CURSOR);
+        }
+        if( (*y > LEVEL_SCALE_GA) && (*y < LEVEL_SCALE_PSO))
+        {
+            glVertex2i( (*x+1.5)*STEP_CURSOR,     (LEVEL_SCALE_GA)*STEP_CURSOR);
+            glVertex2i( (*x+1.5)*STEP_CURSOR,    (LEVEL_SCALE_PSO)*STEP_CURSOR);
+        }
+    glEnd();
+
+    sprintf(str_coor_x,"x: %g",res->mX);
+    sprintf(str_coor_y,"y: %g",res->mY);
+    sprintf(str_value,"value: %g",res->value);
+    sprintf(str_time,"time: %g",res->time);
+    sprintf(str_iter,"iter: %i",res->iter);
+    int c = 0;
+    int h = 0;
+    glColor3ub(0, 0, 0);
+    glRasterPos2i((*x+2)*STEP_CURSOR,(*y+h)*STEP_CURSOR+10);
+    for(c = 0; str_coor_x[c] != 0; c++)
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,str_coor_x[c]);
+    glRasterPos2i((*x+3)*STEP_CURSOR,(*y+h)*STEP_CURSOR+20);
+    for(c = 0; str_coor_y[c] != 0; c++)
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,str_coor_y[c]);
+    glRasterPos2i((*x+3)*STEP_CURSOR,(*y+h)*STEP_CURSOR+30);
+    for(c = 0; str_value[c] != 0; c++)
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,str_value[c]);
+    glRasterPos2i((*x+3)*STEP_CURSOR,(*y+h)*STEP_CURSOR+40);
+    for(c = 0; str_time[c] != 0; c++)
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,str_time[c]);
+    glRasterPos2i((*x+3)*STEP_CURSOR,(*y+h)*STEP_CURSOR+50);
+    for(c = 0; str_iter[c] != 0; c++)
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,str_iter[c]);
+}
+
+

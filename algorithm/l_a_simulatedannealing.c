@@ -95,8 +95,8 @@ sState generateStateCandidate(sState previousState, int iter)
        int n = 0;
        sign = (int)(rand()%(END_SIGN*1000))/1000;
 
-       for(n = 0; n < iter; n+=100);//70
-           n /=20;  //5
+       for(n = 0; n < iter; n+=100);//70 // 100
+           n /=20;  //5 // 20
        double add = 0.0;
        switch(sign)
        {
@@ -157,7 +157,7 @@ sLine simulatedAnnealing_r(sState* primaryState, double initialTemperature, doub
          primaryState->mX = getRandNum(MIN,MAX_X);
          primaryState->mY = getRandNum(MIN,MAX_Y);
          iter = 1;
-         while(iter < (1000*100))
+         while(iter < MAX_LOOP)
          {
              currentEnergy = getValue(*primaryState); // ?????
              sCandidat = generateStateCandidate(*primaryState, iter);

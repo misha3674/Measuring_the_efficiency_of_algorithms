@@ -14,7 +14,6 @@ int test_parent[NUM_COMB] = {5,10,20,50,10};     //|
 int test_child[NUM_COMB] = {5,10,20,50,10};      //|
 int test_mutant[NUM_COMB] = {5,10,20,50,5};      //|
 //-------------------------------------------
-
 typedef struct
 {
     sCoor coor;
@@ -83,13 +82,15 @@ sLine genetic_algorithm(unsigned int num_sys,unsigned int paren,unsigned int chi
      int iter = 0;
      int isFind = 0;
      // ---- Basic Loop --------------
-      while( !isFind)
+      while(!isFind)
       {
            reproduction();
            mutation();
            selection();
            isFind = convergenceTest(gPopulation.parent);
            iter++;
+           if(iter > MAX_LOOP)
+               break;
       }
       // ------ END Basic Loop ----------
       elapsed_time = elapsed();
@@ -98,10 +99,8 @@ sLine genetic_algorithm(unsigned int num_sys,unsigned int paren,unsigned int chi
       result.value         = gPopulation.parent[0].fitnes;
       result.time          = elapsed_time;
       result.iter          = iter;
-
      /* printf("%g %g %g\n",result.coor.mX,result.coor.mY,result.value);
        system("pause");*/
-
       return result;
 }
 // -------------------- Sort Chromosome  --------------------------------------------------------------

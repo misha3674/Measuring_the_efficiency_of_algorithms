@@ -31,7 +31,6 @@ void clear_text_list(sListText* pHead)
     if(pHead == NULL)
         return;
     sListText* crowler = NULL;
-
     while(pHead->pNext != NULL)
     {
         crowler = pHead;

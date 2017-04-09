@@ -31,13 +31,15 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 int main()
 {
     gl_init();
+    double pos_cur_x = 0.;
+    double pos_cur_y = 0.;
     while( !glfwWindowShouldClose(window) )
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-        glClearColor(0.1,0.5,0.1,0);
+        glClearColor(0,0.474,0.4353,0);
        getState(&state);
        switch(state) // state processing in the callback function
        {
@@ -81,7 +83,7 @@ int main()
            {
                 result = run_algorithm(pHeadList_TextAreaSetting);
                 pHeadList_Scale =  load_scale(result);
-                pHeadList_TextResult = load_Text_result(pHeadList_TextAreaSetting);
+                pHeadList_TextResult = load_Text_result(pHeadList_TextAreaSetting,result);
                 pHeadList_TextButtonResult = load_Button_result();
                 setState(RESULTS);
            }
@@ -91,6 +93,8 @@ int main()
                 draw_scale(pHeadList_Scale);
                 draw_Text_list(pHeadList_TextResult);
                 draw_Button_list(pHeadList_TextButtonResult);
+                glfwGetCursorPos(window,&pos_cur_x,&pos_cur_y);
+                proccesing_hover(result,&pos_cur_x,&pos_cur_y);
            }
            break;
            case WAITING:
@@ -109,7 +113,6 @@ int main()
     printf("Good bye\n");
     return 0;
 }
-
 int gl_init()
 {
     if (!glfwInit())
@@ -155,6 +158,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
     glfwGetCursorPos(window,&pos_x,&pos_y);
     getState(&state);
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    {
         if(state == SETTINGS)
         {
             proccesing_text_area(pHeadList_TextAreaSetting,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
@@ -164,4 +168,5 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         {
             proccesing_button_list(pHeadList_TextButtonResult,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
         }
+    }
 }

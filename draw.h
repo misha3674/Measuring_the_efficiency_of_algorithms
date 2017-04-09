@@ -8,4 +8,6 @@ void draw_TextArea_list(listTextArea* pHead);
 void draw_Button_list(sListButton* pHead);
 
 void draw_scale(sListScale* pHead);
+void draw_line(int* x, int* y, int* a, int* b);
+void draw_hover(sResult* res, int* x, int* y);
 #endif // DRAW_H

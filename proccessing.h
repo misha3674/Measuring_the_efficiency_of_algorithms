@@ -11,6 +11,7 @@ void processing_text_textArea(int aKey);
 void getState(eState* aState);
 void setState(eState newState);
 int getTest();
+void proccesing_hover(sResult** result,double* aX,double* aY);
 listTextArea* getPressArea();
 sResult** run_algorithm(listTextArea * data_input);
 

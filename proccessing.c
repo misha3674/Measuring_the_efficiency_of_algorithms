@@ -1,5 +1,6 @@
 #include "common.h"
 #include "proccessing.h"
+#include "draw.h"
 typedef struct
 {
    double mX;
@@ -115,27 +116,38 @@ sResult** run_algorithm(listTextArea * data_input)
    int parent = (int)getInputData(data_input,"Parent");
    int child  = (int)getInputData(data_input,"Child");
    int mutant = (int)getInputData(data_input,"Mutant");
-    printf("pcm %i %i %i\n",parent,child,mutant);
+   printf("parent %i; child %i; mutant %i;\n",parent,child,mutant);
+   int particle = (int)getInputData(data_input,"Particle");
+   double c1    = (double)getInputData(data_input,"KofP (c1)");
+   double c2    = (double)getInputData(data_input,"KofG (c2)");
+   double w     = (double)getInputData(data_input,"Iner (w)");
+   printf("particle %i; c1 %g; c2 %g; w %g;\n",particle,c1,c2,w);
+   double iTem  = (double)getInputData(data_input,"Init Temp");
+   double eTem  = (double)getInputData(data_input,"End Temp");
+   double a     = (double)getInputData(data_input,"a -");
+   double b     = (double)getInputData(data_input,"b -");
+   printf("iTem %g; eTem %g; a %g; b %g;\n",iTem,eTem,a,b);
    int i = 0;
    // init min and max variable
    tmp  = genetic_algorithm(gTest+1,parent,child,mutant); //1,10,10,10
      struct_copy(resGA+i,&tmp);
-   tmp  = simulatedAnnealing(gTest+1,10,0.0001,0.05,1); //1,10,0.0001,0.1,1
+   tmp  = simulatedAnnealing(gTest+1,iTem,eTem,a,b); //1,10,0.0001,0.1,1
      struct_copy(resSA+i,&tmp);
-   tmp = particle_swarm_optimization(gTest+1,10,0.4,0.7,0.75); //1,10,0.2,0.8,0.9
+   tmp = particle_swarm_optimization(gTest+1,particle,c1,c2,w); //1,10,0.2,0.8,0.9
      struct_copy(resPSO+i,&tmp);
    for(i = 1; i < NUM_TEST;i++)
    {
-       tmp  = genetic_algorithm(gTest+1,7,8,9); //1,10,10,10
+       tmp  = genetic_algorithm(gTest+1,parent,child,mutant); //1,10,10,10
          struct_copy(resGA+i,&tmp);
-       tmp  = simulatedAnnealing(gTest+1,10,0.0001,0.05,1); //1,10,0.0001,0.1,1
+       tmp  = simulatedAnnealing(gTest+1,iTem,eTem,a,b); //1,10,0.0001,0.1,1
          struct_copy(resSA+i,&tmp);
-       tmp = particle_swarm_optimization(gTest+1,10,0.4,0.7,0.75); //1,10,0.2,0.8,0.9
+       tmp = particle_swarm_optimization(gTest+1,particle,c1,c2,w); //1,10,0.2,0.8,0.9
          struct_copy(resPSO+i,&tmp);
+       printf("Test %i successful\n",i);
    }
-   resultAlgorithm[0] = resGA;
-   resultAlgorithm[1] = resSA;
-   resultAlgorithm[2] = resPSO;
+   resultAlgorithm[GA] = resGA;
+   resultAlgorithm[SA] = resSA;
+   resultAlgorithm[PSO] = resPSO;
    return resultAlgorithm;
 }
 void struct_copy(sResult* dest,sLine* source)
@@ -205,5 +217,34 @@ void processing_text_textArea(int aKey)
 listTextArea* getPressArea()
 {
     return pPressArea;
+}
+void proccesing_hover(sResult** result, double* aX,double* aY)
+{
+    int pos_x = 0;
+    int pos_y = 0;
+    pos_x = (int)(*aX/STEP_CURSOR) - 1;
+    pos_y = (int)(*aY/STEP_CURSOR);
+
+    if((pos_x >=0) && (pos_x < 100))
+    {
+        //top graf
+        if(pos_y < LEVEL_SCALE_GA)
+        {
+            draw_hover( &(result[GA][pos_x]), &pos_x, &pos_y);
+            return;
+        }
+        // bottom graf
+        if((pos_y > LEVEL_SCALE_PSO) && (pos_y < LEVEL_SCALE_SA))
+        {
+            draw_hover( &(result[SA][pos_x]), &pos_x, &pos_y );
+            return;
+        }
+        // middle graf
+        if( (pos_y > LEVEL_SCALE_GA) && (pos_y < LEVEL_SCALE_PSO))
+        {
+            draw_hover( &(result[PSO][pos_x]), &pos_x, &pos_y );
+            return;
+        }
+    }
 }
 

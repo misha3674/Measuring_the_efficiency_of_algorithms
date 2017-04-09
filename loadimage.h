@@ -14,8 +14,6 @@ FIBITMAP *loadImage(const char *filename)
        printf("Not found\n");
        return NULL;
     }
-    printf("Succsses\n");
-
     return dib1;
 }
 
