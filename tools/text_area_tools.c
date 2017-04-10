@@ -8,11 +8,14 @@
 #define DEF_VALUE 10
 #define PLACE_ONE_SMB_PX 12
 int fillDef(char *fill,float def);
+listTextArea* gHead = NULL;
+
 listTextArea* innit_textArea_list()
 {
     listTextArea* askHead = NULL;
     askHead = (listTextArea*)malloc(sizeof(listTextArea));
     askHead->pNext = NULL;
+    gHead = askHead;
     return askHead;
 }
 listTextArea* add_textArea_list(listTextArea* pHead,const char* aName,int aPos_x,int aPos_y)

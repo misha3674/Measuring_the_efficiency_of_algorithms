@@ -23,7 +23,7 @@ sListButton*  pHeadList_TextButtonResult;
 sListScale*   pHeadList_Scale;
 sResult** result;
 eState state = PREPARE_SETTINGS;
-
+sListTexture* getTextuteTask();
 int gl_init();
 void key_click_clb(GLFWwindow *pWindow, int aKey, int aScanCode, int aAction, int aMods);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
@@ -46,7 +46,7 @@ int main()
 
            case PREPARE_SETTINGS:
            {
-                // clear memory if you need
+                // clear memory
                 pHeadList_TextuteTask1     = load_Texture_task1();
                 pHeadList_TextuteTask2     = load_Texture_task2();
                 pHeadList_TextuteTask3     = load_Texture_task3();
@@ -58,22 +58,7 @@ int main()
            break;
            case SETTINGS:
            {
-               switch(getTest())
-               {
-                    case 0:
-                        pHeadList_TextuteTask =pHeadList_TextuteTask1;
-                    break;
-                   case 1:
-                        pHeadList_TextuteTask =pHeadList_TextuteTask2;
-                   break;
-                   case 2:
-                        pHeadList_TextuteTask =pHeadList_TextuteTask3;
-                   break;
-                   case 3:
-                        pHeadList_TextuteTask =pHeadList_TextuteTask4;
-                   break;
-                   default: break;
-               }
+               pHeadList_TextuteTask = getTextuteTask();
                draw_Texture_list( pHeadList_TextuteTask);
                draw_TextArea_list(pHeadList_TextAreaSetting);
                draw_Button_list(  pHeadList_TextButtonSetting);
@@ -169,4 +154,26 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
             proccesing_button_list(pHeadList_TextButtonResult,(int)pos_x/STEP_CURSOR,(int)pos_y/STEP_CURSOR);
         }
     }
+}
+sListTexture* getTextuteTask()
+{
+    switch(getTestFunction())// getTestFunction
+    {
+         case 0:
+             return pHeadList_TextuteTask1;
+         return;
+        case 1:
+             return pHeadList_TextuteTask2;
+        return;
+        case 2:
+             return  pHeadList_TextuteTask3;
+       return;
+        case 3:
+             return  pHeadList_TextuteTask4;
+        return;
+        default:
+
+        break;
+    }
+    return NULL;
 }

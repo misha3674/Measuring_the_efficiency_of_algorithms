@@ -15,7 +15,10 @@ SOURCES += main.c \
     algorithm/l_a_particle_swarm.c \
     algorithm/l_a_simulatedannealing.c \
     algorithm/time_chrono.c \
-    algorithm/commonalg.c
+    algorithm/commonalg.c \
+    tools/button_tools.c \
+    loadimage.c \
+    tools/scale_tools.c
 
 QMAKE_CFLAGS += -std=c11
 
@@ -42,4 +45,6 @@ HEADERS += \
     load_result.h \
     algorithm/list2.h \
     algorithm/time_chrono.h \
-    algorithm/commonalg.h
+    algorithm/commonalg.h \
+    tools/button_tools.h \
+    tools/scale_tools.h

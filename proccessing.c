@@ -32,8 +32,8 @@ typedef struct
 #define GLFW_KEY_BACKSPACE          259
 
 int gTest = 0;
-eState gState = PREPARE_SETTINGS;
 void struct_copy(sResult* dest,sLine* source);
+eState gState = PREPARE_SETTINGS;
 listTextArea* pPressArea = NULL;
 
 void proccesing_button_list(sListButton* pHead,int click_x,int click_y)
@@ -75,7 +75,7 @@ void action_button_right()
         gTest = 0;
 }
 //-------------------------------------------------------------------------------------------------------
-int getTest()
+int getTestFunction()
 {
     return gTest;
 }

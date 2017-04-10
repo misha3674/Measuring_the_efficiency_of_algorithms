@@ -10,7 +10,7 @@ void proccesing_text_area(listTextArea* pHead,int x, int y);
 void processing_text_textArea(int aKey);
 void getState(eState* aState);
 void setState(eState newState);
-int getTest();
+int getTestFunction();
 void proccesing_hover(sResult** result,double* aX,double* aY);
 listTextArea* getPressArea();
 sResult** run_algorithm(listTextArea * data_input);

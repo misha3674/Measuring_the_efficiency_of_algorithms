@@ -6,9 +6,7 @@
 #include <string.h>
 #include "proccessing.h"
 
-
 void draw_layer(int pos_x, int pos_y, int w, int h);
-
 void draw_Text_list(sListText* pHead)
 {
     int c = 0;
@@ -142,14 +140,11 @@ void draw_TextArea_list(listTextArea* pHead)
     glRasterPos2i(crowler->mX*STEP_CURSOR,crowler->mY*STEP_CURSOR);
     for(c = 0; crowler->name[c] != 0; c++)
         glutBitmapCharacter(GLUT_BITMAP_9_BY_15,crowler->name[c]);
-
     glRasterPos2i((crowler->mX+crowler->shift_area+1)*STEP_CURSOR,crowler->mY*STEP_CURSOR);
     for(c = 0; crowler->text[c] != 0; c++)
         glutBitmapCharacter(GLUT_BITMAP_9_BY_15,crowler->text[c]);
 
 }
-//---------------------------------------------------------------------------------------------------------
-
 //-----------------------------------------------------------------
 void draw_Button_list(sListButton* pHead)
 {
@@ -192,7 +187,6 @@ void draw_Button_list(sListButton* pHead)
             glRasterPos2i((crowler->mX+1)*STEP_CURSOR,(crowler->mY+2.5)*STEP_CURSOR);
             for(c = 0; crowler->name[c] != 0; c++)
                 glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,crowler->name[c]);
-
             crowler = crowler->pNext;
         }
         glRasterPos2i((crowler->mX+1)*STEP_CURSOR,(crowler->mY+2.5)*STEP_CURSOR);
@@ -249,7 +243,6 @@ void draw_scale(sListScale* pHead)
            glVertex2i((crowler->posX+i)*STEP_CURSOR+WITH_POINT/2,(crowler->posY-crowler->dataValue[i])*STEP_CURSOR);
         }
     glEnd();
-
     glPointSize(WITH_POINT);
     glColor3ub(255,0,0);
     glBegin(GL_POINTS);
@@ -318,7 +311,6 @@ void draw_hover(sResult* res, int* x, int* y)
             glVertex2i( (*x+1.5)*STEP_CURSOR,    (LEVEL_SCALE_PSO)*STEP_CURSOR);
         }
     glEnd();
-
     sprintf(str_coor_x,"x: %g",res->mX);
     sprintf(str_coor_y,"y: %g",res->mY);
     sprintf(str_value,"value: %g",res->value);
