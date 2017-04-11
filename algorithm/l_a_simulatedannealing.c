@@ -1,5 +1,5 @@
 #include "commonalg.h"
-#include "list2.h"
+#include "listalg.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

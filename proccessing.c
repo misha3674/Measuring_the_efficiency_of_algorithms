@@ -13,7 +13,7 @@ typedef struct
     double time;
     int iter;
 }sLine;
-#include "algorithm/list2.h"
+#include "algorithm/listalg.h"
 #include "tools/text_area_tools.h"
 #include <stdlib.h>
 #include <stdio.h>

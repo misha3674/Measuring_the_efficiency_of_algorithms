@@ -43,11 +43,11 @@ HEADERS += \
     tools/texture_tools.h \
     proccessing.h \
     load_result.h \
-    algorithm/list2.h \
     algorithm/time_chrono.h \
     algorithm/commonalg.h \
     tools/button_tools.h \
-    tools/scale_tools.h
+    tools/scale_tools.h \
+    algorithm/listalg.h
 
 DISTFILES += \
     bug.txt
