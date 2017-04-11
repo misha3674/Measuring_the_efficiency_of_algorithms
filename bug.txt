@@ -1,0 +1,2 @@
+1. memory leak (PREPARE_RESULT)
+2. check the input number (min/max)

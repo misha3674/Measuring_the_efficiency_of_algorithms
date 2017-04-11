@@ -48,3 +48,6 @@ HEADERS += \
     algorithm/commonalg.h \
     tools/button_tools.h \
     tools/scale_tools.h
+
+DISTFILES += \
+    bug.txt
