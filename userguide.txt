@@ -1,0 +1,10 @@
+The program is run from comparison_algorithm.exe. The first window of the program is Settings (see pic. 1). There are you can choose parameters of algorithms and  optimization problem. To switch between the objective function you must press forward / backward in the upper right corner. For each objective function graph in PTC Mathcad was built.
+On the left side of the screen you can adjust the algorithm for more information, see
+Appendix 1.
+To see the results of the algorithms it’s necessary to press the "Result".
+Pay attention!
+If you entered the data correctly, you remain on the same page.
+The results are presented as histogram for value and scatter diagram for time.
+Number of tests carried out for each algorithm is 100.
+For getting detailed information for each found solution you need to move mouse cursor over the corresponding point of time (see pic.2). Pop-up window will appear with information about found coordinates, the execution, the number of iterations.
+

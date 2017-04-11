@@ -50,4 +50,6 @@ HEADERS += \
     algorithm/listalg.h
 
 DISTFILES += \
-    bug.txt
+    bug.txt \
+    userguide.txt \
+    readme.txt

@@ -72,9 +72,9 @@ sListTexture* load_Texture_task1()
     pHead = innit_texture_list();
     int pos_x = 1;
     int pos_y = 20;
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/graf1.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/sys1.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/num1.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
+    add_textute_list(pHead,"img/graf1.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
+    add_textute_list(pHead,"img/sys1.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num1.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
 
     return pHead;
 }
@@ -84,9 +84,9 @@ sListTexture* load_Texture_task2()
     pHead = innit_texture_list();
     int pos_x = 1;
     int pos_y = 20;
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/graf2.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/sys2.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/num2.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
+    add_textute_list(pHead,"img/graf2.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
+    add_textute_list(pHead,"img/sys2.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num2.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
 
     return pHead;
 }
@@ -96,9 +96,9 @@ sListTexture* load_Texture_task3()
     pHead = innit_texture_list();
     int pos_x = 1;
     int pos_y = 20;
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/graf3.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/sys3.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/num3.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
+    add_textute_list(pHead,"img/graf3.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
+    add_textute_list(pHead,"img/sys3.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num3.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
 
     return pHead;
 }
@@ -108,9 +108,9 @@ sListTexture* load_Texture_task4()
     pHead = innit_texture_list();
     int pos_x = 1;
     int pos_y = 20;
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/graf4.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/sys4.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
-    add_textute_list(pHead,"../coursework_multi-objective_optimization/img/num4.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
+    add_textute_list(pHead,"img/graf4.png",pos_x,pos_y,SIZE_GRAPH_W,SIZE_GRAPH_H);
+    add_textute_list(pHead,"img/sys4.png",36,1,SIZE_FORM_W,SIZE_FORM_H);
+    add_textute_list(pHead,"img/num4.png",10,6,SIZE_NUM_W,SIZE_NUM_H);
 
     return pHead;
 }
@@ -122,11 +122,11 @@ sListButton*  load_Button_setting()
     pHead = innit_button_list();
 
     pButton = add_button_list(pHead,1,6);
-    set_texture_button(pButton,"../coursework_multi-objective_optimization/img/iconl.png");
+    set_texture_button(pButton,"img/iconl.png");
     set_action_button(pButton,&action_button_left);
 
     pButton = add_button_list(pHead,19,6);
-    set_texture_button(pButton,"../coursework_multi-objective_optimization/img/iconr.png");
+    set_texture_button(pButton,"img/iconr.png");
     set_action_button(pButton,&action_button_right);
 
     pButton = add_button_list(pHead,120,63);
