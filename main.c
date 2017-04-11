@@ -46,7 +46,7 @@ int main()
 
            case PREPARE_SETTINGS:
            {
-                // clear memory
+                // is done only once during the loop
                 pHeadList_TextuteTask1     = load_Texture_task1();
                 pHeadList_TextuteTask2     = load_Texture_task2();
                 pHeadList_TextuteTask3     = load_Texture_task3();
@@ -75,7 +75,7 @@ int main()
            break;
            case RESULTS:
            {
-                draw_scale(pHeadList_Scale);
+                draw_Scale_list(pHeadList_Scale);
                 draw_Text_list(pHeadList_TextResult);
                 draw_Button_list(pHeadList_TextButtonResult);
                 glfwGetCursorPos(window,&pos_cur_x,&pos_cur_y);
@@ -161,16 +161,12 @@ sListTexture* getTextuteTask()
     {
          case 0:
              return pHeadList_TextuteTask1;
-         return;
         case 1:
              return pHeadList_TextuteTask2;
-        return;
         case 2:
              return  pHeadList_TextuteTask3;
-       return;
         case 3:
              return  pHeadList_TextuteTask4;
-        return;
         default:
 
         break;

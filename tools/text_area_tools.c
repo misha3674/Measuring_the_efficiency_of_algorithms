@@ -8,23 +8,19 @@
 #define DEF_VALUE 10
 #define PLACE_ONE_SMB_PX 12
 int fillDef(char *fill,float def);
-listTextArea* gHead = NULL;
 
 listTextArea* innit_textArea_list()
 {
     listTextArea* askHead = NULL;
     askHead = (listTextArea*)malloc(sizeof(listTextArea));
     askHead->pNext = NULL;
-    gHead = askHead;
     return askHead;
 }
 listTextArea* add_textArea_list(listTextArea* pHead,const char* aName,int aPos_x,int aPos_y)
 {
     listTextArea* crowler = pHead;
     listTextArea* newNode = NULL;
-
     newNode = (listTextArea*)malloc(sizeof(listTextArea));
-
     strcpy(&(newNode->name[0]),aName);
     newNode->mX = aPos_x;
     newNode->mY = aPos_y;
@@ -38,20 +34,6 @@ listTextArea* add_textArea_list(listTextArea* pHead,const char* aName,int aPos_x
         crowler = crowler->pNext;
     crowler->pNext = newNode;
     return newNode;
-}
-void clear_textArea_list(listTextArea* pHead)
-{
-    if(pHead == NULL)
-        return;
-    listTextArea* crowler = NULL;
-    while(pHead->pNext != NULL)
-    {
-        crowler = pHead;
-        pHead = crowler->pNext;
-        free(crowler);
-    }
-    free(pHead);
-    pHead = NULL;
 }
 void set_limit_def_area(listTextArea* pArea,double min, double max, double def)
 {

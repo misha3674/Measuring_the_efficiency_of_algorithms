@@ -102,14 +102,14 @@ void action_button_result()
 //-------------------------------------------------------------------------------------------------------
 sResult** run_algorithm(listTextArea * data_input)
 {
-   sResult** resultAlgorithm;
-   sResult* resGA;
-   sResult* resSA;
-   sResult* resPSO;
+   sResult** resultAlgorithm = NULL;
+   sResult* resGA            = NULL;
+   sResult* resSA            = NULL;
+   sResult* resPSO           = NULL;
    sLine tmp;
    srand(time(0));
-   resGA = (sResult*)malloc(sizeof(sResult)*NUM_TEST);
-   resSA = (sResult*)malloc(sizeof(sResult)*NUM_TEST);
+   resGA =  (sResult*)malloc(sizeof(sResult)*NUM_TEST);
+   resSA =  (sResult*)malloc(sizeof(sResult)*NUM_TEST);
    resPSO = (sResult*)malloc(sizeof(sResult)*NUM_TEST);
    resultAlgorithm = (sResult**)malloc(sizeof(sResult*)*NUM_ALGORITHM);
 

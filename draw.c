@@ -194,7 +194,7 @@ void draw_Button_list(sListButton* pHead)
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,crowler->name[c]);
 }
 //---------------------------------------------------------------------------------------------------------
-void draw_scale(sListScale* pHead)
+void draw_Scale_list(sListScale* pHead)
 {
     sListScale* crowler = NULL;
     if(pHead == NULL)
